@@ -1,5 +1,9 @@
 <!-- Inclure l'entête ici -->
 <!-- Inclure la navigation ici -->
+<?php
+chargerVuePartielle('_entete');
+chargerVuePartielle('_nav');
+?>
 
 <!-- Main Content -->
 <div class="container mt-4">
@@ -19,13 +23,13 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <ul class="nav nav-pills tab-pills">
             <li class="nav-item">
-                <a class="nav-link <!-- Afficher "active" si aucune sélection n'est faite -->" href="/annonces">Toutes (<!-- Afficher le nombre total d'annonces -->)</a>
+                <a class="nav-link <!-- Afficher " active" si aucune sélection n'est faite -->" href="/annonces">Toutes (<!-- Afficher le nombre total d'annonces -->)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <!-- Afficher "active" si la sélection est "actives" -->" href="/annonces?selection=actives">Actives (<!-- Afficher le nombre d'annonces actives -->)</a>
+                <a class="nav-link <!-- Afficher " active" si la sélection est "actives" -->" href="/annonces?selection=actives">Actives (<!-- Afficher le nombre d'annonces actives -->)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <!-- Afficher "active" si la sélection est "vendues" -->" href="/annonces?selection=vendues">Vendues (<!-- Afficher le nombre d'annonces vendues -->)</a>
+                <a class="nav-link <!-- Afficher " active" si la sélection est "vendues" -->" href="/annonces?selection=vendues">Vendues (<!-- Afficher le nombre d'annonces vendues -->)</a>
             </li>
         </ul>
 
@@ -35,13 +39,13 @@
     </div>
     <div class="row">
         <!-- Boucle pour afficher toutes les annonces -->
-        <!-- Pour chaque annonce -->
-
+        <?php foreach ($annonces as $annonce) { ?>
+            <!-- Pour chaque annonce -->
             <!-- Listings -->
             <div class="col-md-6 col-lg-4">
                 <div class="card h-100">
                     <div class="listing-status">
-                        <span class="badge bg-success"><!-- Afficher "Active" ou "Inactive" selon l'état de l'annonce --></span>
+                        <span class="badge bg-success"><?php echo $annonce['etat'] ?></span>
                     </div>
                     <div class="listing-actions">
                         <div class="dropdown">
@@ -74,26 +78,31 @@
                     </div>
                     <img src="/images/300x200.png" class="card-img-top" alt="PS5">
                     <div class="card-body">
-                        <h5 class="card-title"><!-- Afficher le titre de l'annonce --></h5>
+                        <h5 class="card-title"><?php echo $annonce['titre'] ?></h5>
                         <div class="mb-2">
-                            <span class="price-tag"><!-- Afficher le prix de l'annonce --></span>
-                            <span class="badge bg-primary ms-2"><!-- Afficher la catégorie de l'annonce --></span>
-                            <span class="badge bg-secondary ms-2"><!-- Afficher l'état du produit --></span>
+                            <span class="price-tag"><?php echo $annonce['prix'] ?></span>
+                            <span class="badge bg-primary ms-2"><?php echo obtenir_nom_categorie($annonce['categorie_id']) ?></span>
+                            <span class="badge bg-secondary ms-2"><?php echo $annonce['etat'] ?></span>
                             <!-- Si le produit est vendu -->
-                                <span class="badge bg-danger text-light ms-2"><!-- Afficher "Vendu" si le produit est vendu --></span>
+                            <?php if ($annonce['est_vendu'] == 0) { ?>
+                                <span class="badge bg-danger text-light ms-2"> Pas Vendu</span>
+                            <?php } else { ?>
+                                <span class="badge bg-danger text-light ms-2">Vendu</span>
+                            <?php } ?>
                             <!-- Fin si -->
                         </div>
-                        <p class="card-text"><!-- Afficher la description de l'annonce --></p>
+                        <p class="card-text"><?php echo $annonce['description'] ?></p>
                     </div>
                     <div class="card-footer bg-white">
                         <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">Publiée <!-- Afficher le temps écoulé depuis la création --></small>
-                            <span class="text-muted"><i class="fas fa-eye me-1"></i> <!-- Afficher le nombre de vues --></span>
+                            <small class="text-muted">Publiée <?php echo il_y_a($annonce['date_creation']) ?></small>
+                            <span class="text-muted"><i class="fas fa-eye me-1"></i> <?php echo $annonce['nombre_vues'] ?></span>
                         </div>
                     </div>
                 </div>
             </div>
-        <!-- Fin de la boucle -->
+            <!-- Fin de la boucle -->
+        <?php } ?>
     </div>
 
 
@@ -114,19 +123,19 @@
         <ul class="pagination justify-content-center">
 
             <!-- Lien vers la page précédente -->
-            <li class="page-item <!-- Afficher "disabled" si c'est la première page -->">
+            <li class="page-item <!-- Afficher " disabled" si c'est la première page -->">
                 <a class="page-link" href="?page=<!-- Numéro de page - 1 --><!-- Ajouter le paramètre de sélection si présent -->" tabindex="-1" aria-disabled="<!-- true si première page, sinon false -->">Précédent</a>
             </li>
 
             <!-- Liens pour chaque page -->
             <!-- Boucle pour chaque page -->
-                <li class="page-item <!-- Afficher "active" si c'est la page courante -->">
-                    <a class="page-link" href="?page=<!-- Numéro de page --><!-- Ajouter le paramètre de sélection si présent -->"><!-- Numéro de page --></a>
-                </li>
+            <li class="page-item <!-- Afficher " active" si c'est la page courante -->">
+                <a class="page-link" href="?page=<!-- Numéro de page --><!-- Ajouter le paramètre de sélection si présent -->"><!-- Numéro de page --></a>
+            </li>
             <!-- Fin de la boucle -->
 
             <!-- Lien vers la page suivante -->
-            <li class="page-item <!-- Afficher "disabled" si c'est la dernière page -->">
+            <li class="page-item <!-- Afficher " disabled" si c'est la dernière page -->">
                 <a class="page-link" href="?page=<!-- Numéro de page + 1 --><!-- Ajouter le paramètre de sélection si présent -->" aria-disabled="<!-- true si dernière page, sinon false -->">Suivant</a>
             </li>
 
@@ -146,3 +155,6 @@
 </script>
 
 <!-- Inclure le pied de page ici -->
+<?php
+chargerVue('_pied_page');
+?>

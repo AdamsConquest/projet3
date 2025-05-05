@@ -3,8 +3,7 @@
 /**
  * Fonctions utilitaires pour l' application
  */
-
-
+ 
 /**
  * retourne le chemin d'accès absolu à un fichier
  *

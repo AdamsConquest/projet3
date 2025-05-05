@@ -12,4 +12,4 @@
  */
 
 $routeur->get("/", "AccueilController@index");
-
+$routeur->get("/categories/{id}/annonces","CategorieController@afficher_par_categorie");

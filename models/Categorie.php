@@ -16,4 +16,12 @@ class Categorie
 
     $this->bd = new Database($config);  // Instance de la classe Database 
   }
+
+  function obtenir_annonce_par_categorie($id_categorie, $nom_table = "produits")
+  {
+    $sql = "SELECT * FROM $nom_table where categorie_id = :id_categorie";
+    $params = [":id_categorie"=>$id_categorie];
+    return $this->bd->requete($sql,$params)->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
 }

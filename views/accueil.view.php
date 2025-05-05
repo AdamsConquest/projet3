@@ -1,5 +1,8 @@
 <!-- À inclure : entête et navigation -->
-
+<?php
+ chargerVuePartielle('_entete');
+ chargerVuePartielle('_nav');
+ ?>
 <!-- Hero Section -->
 <section class="hero-section">
   <div class="container text-center">
@@ -30,7 +33,7 @@
           </div>
           <h4>Jeux vidéo</h4>
           <p>Consoles, jeux, accessoires et goodies</p>
-          <a href="#" class="btn btn-sm btn-primary">Explorer</a>
+          <a href="/categories/1/annonces" class="btn btn-sm btn-primary">Explorer</a>
         </div>
       </div>
       <div class="col-md-3">
@@ -40,7 +43,7 @@
           </div>
           <h4>Super-héros</h4>
           <p>Figurines, comics et objets de collection</p>
-          <a href="#" class="btn btn-sm btn-primary">Explorer</a>
+          <a href="/categories/2/annonces" class="btn btn-sm btn-primary">Explorer</a>
         </div>
       </div>
       <div class="col-md-3">
@@ -50,7 +53,7 @@
           </div>
           <h4>Films cultes</h4>
           <p>DVDs, affiches et produits dérivés</p>
-          <a href="#" class="btn btn-sm btn-primary">Explorer</a>
+          <a href="/categories/3/annonces" class="btn btn-sm btn-primary">Explorer</a>
         </div>
       </div>
       <div class="col-md-3">
@@ -60,7 +63,7 @@
           </div>
           <h4>Séries TV</h4>
           <p>Coffrets, vêtements et accessoires</p>
-          <a href="#" class="btn btn-sm btn-primary">Explorer</a>
+          <a href="/categories/4/annonces" class="btn btn-sm btn-primary">Explorer</a>
         </div>
       </div>
     </div>
@@ -126,3 +129,6 @@
 </div>
 
 <!-- À inclure : pied de page -->
+<?php
+ chargerVue('_pied_page');
+ ?>

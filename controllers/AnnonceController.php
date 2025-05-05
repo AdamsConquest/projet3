@@ -17,4 +17,6 @@ class AnnonceController
     $this->annonce = new Annonce(); // instance du modèle Annonce
   }
 
+  
+ 
 }

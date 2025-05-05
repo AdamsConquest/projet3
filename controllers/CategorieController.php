@@ -15,4 +15,12 @@ class CategorieController
     require_once get_chemin_defaut('models/Categorie.php');
     $this->categorie = new Categorie(); // instance du modèle Categorie
   }
+
+  //afficher annonces par categorie
+  public function afficher_par_categorie($params){
+   $resultat = $this->categorie->obtenir_annonce_par_categorie($params['id']);
+   chargerVue("annonces/index", donnees:[ 
+    "annonces" => $resultat
+   ]);
+   }
 }
