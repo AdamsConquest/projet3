@@ -11,7 +11,6 @@ class AccueilController
 
   public function index()
   {
-
     chargerVue("accueil", [
       "titre" => "Accueil",
     ]);
