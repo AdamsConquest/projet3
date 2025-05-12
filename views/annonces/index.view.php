@@ -39,7 +39,7 @@ chargerVuePartielle('_nav');
     </div>
     <div class="row">
         <!-- Boucle pour afficher toutes les annonces -->
-        <?php if (isset($annonces)) {
+        <?php if (!isset($annonces)) {
             echo ("Veuillez creer une annonce.");
         } else {
             foreach ($annonces as $annonce) {
