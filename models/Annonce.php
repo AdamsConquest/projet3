@@ -18,5 +18,22 @@ class Annonce
     $this->bd = new Database($config); // Instance de la classe Database 
   }
 
-  
+  function ajouter_annnonce($categorie, $titre, $description, $prix, $etat)
+  {
+    //remove after
+    $_SESSION['id'] = 1;
+    ////
+    $id = $_SESSION['id'];
+    $nom_table = "produits";
+    $sql = "INSERT INTO  $nom_table (utilisateur_id, categorie_id ,titre, description, prix,etat ) VALUES (:id, :categorie, :titre, :description, :prix, :etat)";
+    $params = [
+      ":id" => $id,
+      ":categorie" => $categorie,
+      ":titre" => $titre,
+      ":description" => $description,
+      ":prix" => $prix,
+      ":etat" => $etat
+    ];
+    $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+  }
 }

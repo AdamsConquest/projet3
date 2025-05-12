@@ -15,4 +15,10 @@ class AccueilController
       "titre" => "Accueil",
     ]);
   }
+
+  public function ajouterAnnonce(){
+    chargerVue("annonces/ajouter", [
+    
+    ]);
+  }
 }

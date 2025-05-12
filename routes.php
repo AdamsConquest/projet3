@@ -14,3 +14,5 @@
 $routeur->get("/", "AccueilController@index");
 $routeur->get("/categories/{id}/annonces","CategorieController@afficher_par_categorie");
 $routeur->get("/MesAnnonces","AnnonceController@afficher_par_utilisateur");
+$routeur->get("/ajouter","AccueilController@ajouterAnnonce");
+$routeur->post("/annonces","AnnonceController@ajouterUneAnnonce");

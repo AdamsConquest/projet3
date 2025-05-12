@@ -9,7 +9,7 @@
     <h1 class="display-4 fw-bold">Bienvenue sur PopBazaar</h1>
     <p class="lead">Le marché des objets de culture pop</p>
     <div class="mt-4">
-      <a href="#" class="btn btn-secondary btn-lg me-2">
+      <a href="/ajouter" class="btn btn-secondary btn-lg me-2">
         <i class="fas fa-plus-circle me-2"></i>Déposer une annonce
       </a>
       <a href="#categories" class="btn btn-outline-light btn-lg">
