@@ -30,7 +30,7 @@
           <a class="nav-link" href="#">Mes favoris</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Mes annonces</a>
+          <a class="nav-link active" href="/MesAnnonces">Mes annonces</a>
         </li>
         <!-- Fin condition -->
       </ul>

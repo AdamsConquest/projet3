@@ -17,6 +17,12 @@ class AnnonceController
     $this->annonce = new Annonce(); // instance du modèle Annonce
   }
 
-  
- 
+  //afficher annonces par utilisateur
+  public function afficher_par_utilisateur($params)
+  {
+
+    chargerVue("annonces/index", donnees: [
+      "annonces" => null
+    ]);
+  }
 }

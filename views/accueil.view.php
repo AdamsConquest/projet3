@@ -130,5 +130,5 @@
 
 <!-- À inclure : pied de page -->
 <?php
- chargerVue('_pied_page');
+ chargerVuePartielle('_pied_page');
  ?>
