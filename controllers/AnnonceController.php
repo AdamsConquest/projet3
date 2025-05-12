@@ -25,4 +25,14 @@ class AnnonceController
       "annonces" => null
     ]);
   }
+
+  public function afficher_par_annonce($params) {
+
+    $donnees = $this->annonce->get_annonce($params['id']);
+    inspecter($donnees);
+    chargerVue("annonces/afficher", donnees: [
+      "titre" => "Annonce",
+      "annonce" => $donnees[0],
+    ]);
+  }
 }

@@ -18,5 +18,11 @@ class Annonce
     $this->bd = new Database($config); // Instance de la classe Database 
   }
 
+  public function get_annonce($id) {
+    $sql = "SELECT * FROM produits WHERE id = ?";
+    $stmt = $this->bd->requete($sql, params: ["1" => $id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
   
 }

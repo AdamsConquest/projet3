@@ -1,5 +1,8 @@
 <!-- À inclure : entête et navigation -->
- 
+ <?php
+chargerVuePartielle('_entete');
+chargerVuePartielle('_nav');
+?>
 
 <!-- Main Content -->
 <div class="container mt-3">
@@ -20,25 +23,25 @@
     <div class="col-lg-5">
       <div class="product-details mb-4">
         <div class="d-flex justify-content-between align-items-start mb-3">
-          <h1 class="mb-0"><!-- Titre de l'annonce --></h1>
+          <h1 class="mb-0"><?php echo $annonce['titre'] ?></h1>
           <div class="favorite-btn active" id="favoriteBtn">
             <i class="fas fa-heart"></i>
           </div>
         </div>
 
         <div class="mb-3">
-          <span class="badge bg-primary"><!-- Catégorie --></span>
-          <span class="badge bg-success ms-2"><!-- État --></span>
-          <span class="badge bg-secondary ms-2"><!-- Date de publication --></span>
+          <span class="badge bg-primary"><?php echo obtenir_nom_categorie($annonce['categorie_id']) ?></span>
+          <span class="badge bg-success ms-2"><?php echo $annonce['etat'] ?></span>
+          <span class="badge bg-secondary ms-2"><?php echo $annonce['date_creation'] ?></span>
         </div>
 
         <div class="mb-4">
-          <span class="price-tag"><!-- Prix --> $</span>
+          <span class="price-tag"><?php echo $annonce['prix'] ?> $</span>
         </div>
 
         <div class="mb-4">
           <h5>Description</h5>
-          <p><!-- Description de l'annonce --></p>
+          <p><?php echo $annonce['description'] ?></p>
         </div>
       </div>
 
