@@ -42,7 +42,7 @@ chargerVuePartielle('_nav');
         <?php if (!isset($annonces)) { ?>
 
             <!-- Empty Listings State (Hidden) -->
-            <div class="empty-listings" style="display: none;">
+            <div class="empty-listings" style="display:<?= !isset($annonces) || empty($annonces) ? 'block' : 'none' ?>;">
                 <i class="fas fa-tag"></i>
                 <h3>Aucune annonce publiée</h3>
                 <p class="text-muted mb-4">Vous n'avez pas encore publié d'annonces.</p>
