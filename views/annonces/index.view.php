@@ -23,13 +23,13 @@ chargerVuePartielle('_nav');
     <div class="d-flex justify-content-between align-items-center mb-4">
         <ul class="nav nav-pills tab-pills">
             <li class="nav-item">
-                <a class="nav-link <!-- Afficher " active" si aucune sélection n'est faite -->" href="/annonces">Toutes (<!-- Afficher le nombre total d'annonces -->)</a>
+                <a class="nav-link <!-- Afficher ' active' si aucune sélection n'est faite -->" href="/annonces">Toutes (<!-- Afficher le nombre total d'annonces -->)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <!-- Afficher " active" si la sélection est "actives" -->" href="/annonces?selection=actives">Actives (<!-- Afficher le nombre d'annonces actives -->)</a>
+                <a class="nav-link <!-- Afficher ' active' si la sélection est 'actives' -->" href="/annonces?selection=actives">Actives (<!-- Afficher le nombre d'annonces actives -->)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <!-- Afficher " active" si la sélection est "vendues" -->" href="/annonces?selection=vendues">Vendues (<!-- Afficher le nombre d'annonces vendues -->)</a>
+                <a class="nav-link <!-- Afficher ' active' si la sélection est 'vendues' -->" href="/annonces?selection=vendues">Vendues (<!-- Afficher le nombre d'annonces vendues -->)</a>
             </li>
         </ul>
 
@@ -39,11 +39,20 @@ chargerVuePartielle('_nav');
     </div>
     <div class="row">
         <!-- Boucle pour afficher toutes les annonces -->
-        <?php if (!isset($annonces)) {
-            echo ("Veuillez creer une annonce.");
-        } else {
-            foreach ($annonces as $annonce) {
-        ?>
+        <?php if (!isset($annonces)) { ?>
+
+            <!-- Empty Listings State (Hidden) -->
+            <div class="empty-listings" style="display: none;">
+                <i class="fas fa-tag"></i>
+                <h3>Aucune annonce publiée</h3>
+                <p class="text-muted mb-4">Vous n'avez pas encore publié d'annonces.</p>
+                <a href="/annonces/ajouter" class="btn btn-primary">
+                    <i class="fas fa-plus-circle me-2"></i>Créer ma première annonce
+                </a>
+            </div>
+
+            <?php } else {
+            foreach ($annonces as $annonce) { ?>
                 <!-- Pour chaque annonce -->
                 <!-- Listings -->
                 <div class="col-md-6 col-lg-4">
@@ -105,25 +114,15 @@ chargerVuePartielle('_nav');
                         </div>
                     </div>
                 </div>
-        <?php
-            }
-        }
-        ?>
+         <?php } ?>
+      <?php } ?>
         <!-- Fin de la boucle -->
     </div>
 
 
 
 
-    <!-- Empty Listings State (Hidden) -->
-    <div class="empty-listings" style="display: none;">
-        <i class="fas fa-tag"></i>
-        <h3>Aucune annonce publiée</h3>
-        <p class="text-muted mb-4">Vous n'avez pas encore publié d'annonces.</p>
-        <a href="/annonces/ajouter" class="btn btn-primary">
-            <i class="fas fa-plus-circle me-2"></i>Créer ma première annonce
-        </a>
-    </div>
+
 
     <!-- Pagination -->
     <nav aria-label="Page navigation" class="mt-4">
