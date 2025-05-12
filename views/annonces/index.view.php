@@ -39,70 +39,77 @@ chargerVuePartielle('_nav');
     </div>
     <div class="row">
         <!-- Boucle pour afficher toutes les annonces -->
-        <?php foreach ($annonces as $annonce) { ?>
-            <!-- Pour chaque annonce -->
-            <!-- Listings -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="listing-status">
-                        <span class="badge bg-success"><?php echo $annonce['etat'] ?></span>
-                    </div>
-                    <div class="listing-actions">
-                        <div class="dropdown">
-                            <button class="btn btn-light btn-sm" type="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="/annonces/<!-- ID du produit -->"><i class="fas fa-eye me-2"></i>Voir</a></li>
-                                <li><a class="dropdown-item" href="/annonces/<!-- ID du produit -->/modifier"><i class="fas fa-edit me-2"></i>Modifier</a></li>
-                                <li>
-
-                                    <!-- Formulaire pour marquer comme vendu -->
-                                    <form id="form-vendue" method="POST" action="/annonces/<!-- ID du produit -->">
-                                        <input type="hidden" name="est_vendu" value="1">
-                                        <button class="dropdown-item text-danger" type="submit"><i class="fas fa-check-circle me-2"></i>Marquer comme vendu</button>
-                                    </form>
-
-
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-
-                                    <form method="POST" action="/annonces/<!-- ID du produit -->/supprimer">
-                                        <button class="dropdown-item text-danger" type="submit"><i class="fas fa-trash-alt me-2"></i>Supprimer</button>
-                                    </form>
-                            </ul>
+        <?php if (isset($annonces)) {
+            echo ("Veuillez creer une annonce.");
+        } else {
+            foreach ($annonces as $annonce) {
+        ?>
+                <!-- Pour chaque annonce -->
+                <!-- Listings -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="listing-status">
+                            <span class="badge bg-success"><?php echo $annonce['etat'] ?></span>
                         </div>
-                    </div>
-                    <img src="/images/300x200.png" class="card-img-top" alt="PS5">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $annonce['titre'] ?></h5>
-                        <div class="mb-2">
-                            <span class="price-tag"><?php echo $annonce['prix'] ?></span>
-                            <span class="badge bg-primary ms-2"><?php echo obtenir_nom_categorie($annonce['categorie_id']) ?></span>
-                            <span class="badge bg-secondary ms-2"><?php echo $annonce['etat'] ?></span>
-                            <!-- Si le produit est vendu -->
-                            <?php if ($annonce['est_vendu'] == 0) { ?>
-                                <span class="badge bg-danger text-light ms-2"> Pas Vendu</span>
-                            <?php } else { ?>
-                                <span class="badge bg-danger text-light ms-2">Vendu</span>
-                            <?php } ?>
-                            <!-- Fin si -->
+                        <div class="listing-actions">
+                            <div class="dropdown">
+                                <button class="btn btn-light btn-sm" type="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="/annonces/<!-- ID du produit -->"><i class="fas fa-eye me-2"></i>Voir</a></li>
+                                    <li><a class="dropdown-item" href="/annonces/<!-- ID du produit -->/modifier"><i class="fas fa-edit me-2"></i>Modifier</a></li>
+                                    <li>
+
+                                        <!-- Formulaire pour marquer comme vendu -->
+                                        <form id="form-vendue" method="POST" action="/annonces/<!-- ID du produit -->">
+                                            <input type="hidden" name="est_vendu" value="1">
+                                            <button class="dropdown-item text-danger" type="submit"><i class="fas fa-check-circle me-2"></i>Marquer comme vendu</button>
+                                        </form>
+
+
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+
+                                        <form method="POST" action="/annonces/<!-- ID du produit -->/supprimer">
+                                            <button class="dropdown-item text-danger" type="submit"><i class="fas fa-trash-alt me-2"></i>Supprimer</button>
+                                        </form>
+                                </ul>
+                            </div>
                         </div>
-                        <p class="card-text"><?php echo $annonce['description'] ?></p>
-                    </div>
-                    <div class="card-footer bg-white">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">Publiée <?php echo il_y_a($annonce['date_creation']) ?></small>
-                            <span class="text-muted"><i class="fas fa-eye me-1"></i> <?php echo $annonce['nombre_vues'] ?></span>
+                        <img src="/images/300x200.png" class="card-img-top" alt="PS5">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $annonce['titre'] ?></h5>
+                            <div class="mb-2">
+                                <span class="price-tag"><?php echo $annonce['prix'] ?></span>
+                                <span class="badge bg-primary ms-2"><?php echo obtenir_nom_categorie($annonce['categorie_id']) ?></span>
+                                <span class="badge bg-secondary ms-2"><?php echo $annonce['etat'] ?></span>
+                                <!-- Si le produit est vendu -->
+                                <?php if ($annonce['est_vendu'] == 0) { ?>
+                                    <span class="badge bg-danger text-light ms-2"> Pas Vendu</span>
+                                <?php } else { ?>
+                                    <span class="badge bg-danger text-light ms-2">Vendu</span>
+                                <?php } ?>
+                                <!-- Fin si -->
+                            </div>
+                            <p class="card-text"><?php echo $annonce['description'] ?></p>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Publiée <?php echo il_y_a($annonce['date_creation']) ?></small>
+                                <span class="text-muted"><i class="fas fa-eye me-1"></i> <?php echo $annonce['nombre_vues'] ?></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Fin de la boucle -->
-        <?php } ?>
+        <?php
+            }
+        }
+        ?>
+        <!-- Fin de la boucle -->
     </div>
 
 
@@ -156,5 +163,5 @@ chargerVuePartielle('_nav');
 
 <!-- Inclure le pied de page ici -->
 <?php
-chargerVue('_pied_page');
+chargerVuePartielle('_pied_page');
 ?>

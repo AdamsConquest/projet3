@@ -9,8 +9,6 @@ class ProfilController
 
   public function __construct() {}
 
-  public function afficher($params)
-  {
+  public function afficher($params) {}
 
-  }
 }
