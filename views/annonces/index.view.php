@@ -33,7 +33,7 @@ chargerVuePartielle('_nav');
             </li>
         </ul>
 
-        <a href="/annonces/ajouter" class="btn btn-primary">
+        <a href="/MesAnnonces/ajouter" class="btn btn-primary">
             <i class="fas fa-plus-circle me-2"></i>Créer une annonce
         </a>
     </div>
@@ -46,7 +46,7 @@ chargerVuePartielle('_nav');
                 <i class="fas fa-tag"></i>
                 <h3>Aucune annonce publiée</h3>
                 <p class="text-muted mb-4">Vous n'avez pas encore publié d'annonces.</p>
-                <a href="/annonces/ajouter" class="btn btn-primary">
+                <a href="/MesAnnonces/ajouter" class="btn btn-primary">
                     <i class="fas fa-plus-circle me-2"></i>Créer ma première annonce
                 </a>
             </div>
