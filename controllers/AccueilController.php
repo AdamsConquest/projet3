@@ -16,9 +16,12 @@ class AccueilController
     ]);
   }
 
-  public function ajouterAnnonce(){
-    chargerVue("annonces/ajouter", [
-    
-    ]);
+  public function ajouterAnnonce()
+  {
+    if (isset($_SESSION['id'])) {
+      chargerVue("annonces/ajouter", []);
+    } else {
+      chargerVue("utilisateur/connexion", []);
+    }
   }
 }

@@ -32,11 +32,9 @@ class AnnonceController
     $prix = Validation::valider_champs('name', obtenirParametre('prix'), ['requis']);
     $etat =  Validation::valider_champs('name', obtenirParametre('etat'), ['requis']);
 
-
     if ($catergoire && $titre && $description && $prix && $etat) {
       $this->annonce->ajouter_annnonce(obtenir_id_categorie(obtenirParametre('categorie')), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('etat'));
     }
-
     chargerVue("annonces/index", donnees: []);
   }
 }
