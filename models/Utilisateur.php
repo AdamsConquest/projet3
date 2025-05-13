@@ -34,4 +34,10 @@ class Utilisateur
     ];
     $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  function utilisateur_dans_BD($email, $password){
+    $nom_table = "utilisateurs";
+    $sql = "INSERT INTO $nom_table (nom_utilisateur, email, mot_de_passe_hash, prenom, nom, telephone) VALUES (:nom_utilisateur, :email, :hashed_password, :prenom, :nom, :telephone)";
+
+  }
 }

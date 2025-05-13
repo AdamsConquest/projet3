@@ -42,4 +42,14 @@ class UtilisateurController
       }
     }
   }
+
+  public function connexion_utilisteur(){
+      $email = Validation::valider_champs('email', obtenirParametre('email'), ['requis' => true]);
+      $password =   Validation::valider_champs('mot de passe', obtenirParametre('mot_passe'), ['requis' => true]);
+
+      if(){
+        
+      }
+
+  }
 }

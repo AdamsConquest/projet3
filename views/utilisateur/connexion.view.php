@@ -16,7 +16,7 @@ chargerVuePartielle('_nav');
     <!-- À inclure : message d'erreurs -->
      
 
-    <form class="login-form" method="POST" action="#">
+    <form class="login-form" method="POST" action="/connexion_user">
       <div class="mb-3">
         <input type="email" class="form-control" id="email" placeholder="Adresse email" name="email" required>
       </div>

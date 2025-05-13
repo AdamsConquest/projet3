@@ -23,3 +23,4 @@ $routeur->get("/inscription", "AccueilController@afficherPageInscription");
 
 $routeur->post("/annonces","AnnonceController@ajouterUneAnnonce");
 $routeur->post("/inscription_User","UtilisateurController@inscrire_utilisateur");
+$routeur->post("/connexion_user","UtilisateurController@connexion_utilisteur");
