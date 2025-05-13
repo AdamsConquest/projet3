@@ -34,7 +34,7 @@ chargerVuePartielle('_nav');
 
       <div class="text-center mb-3">
         <span>Pas encore de compte? </span>
-        <a href="#" class="text-decoration-none">S'inscrire</a>
+        <a href="/inscription" class="text-decoration-none">S'inscrire</a>
       </div>
 
       <div class="divider">

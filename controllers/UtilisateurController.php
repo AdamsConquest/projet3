@@ -17,5 +17,13 @@ class UtilisateurController
     $this->utilisateur = new Utilisateur(); // instance du modèle Utilisateur
   }
 
- 
+  public function inscrire_utilisateur()
+  {
+    $Prénom =  Validation::valider_champs('name', obtenirParametre('firstname'), ['requis']);
+    $nom = Validation::valider_champs('name', obtenirParametre('lastname'), ['requis']);
+    $nom_utilisateur = Validation::valider_champs('name', obtenirParametre('nom_utilisateur'), ['requis']);
+    $courriel = Validation::valider_champs('name', obtenirParametre('email'), ['requis']);
+    $mot_de_passe =  Validation::valider_champs('mot de passe', obtenirParametre('mot_passe'), ['min' => 2, 'max' => 50]);
+    inspecter($mot_de_passe);
+  }
 }

@@ -24,4 +24,12 @@ class AccueilController
       chargerVue("utilisateur/connexion", []);
     }
   }
+
+  public function afficherPageInscription(){
+    chargerVue("utilisateur/inscription");
+  }
+  
+    public function afficherPageConnexion(){
+    chargerVue("utilisateur/connexion");
+  }
 }
