@@ -20,7 +20,6 @@ class AnnonceController
   //afficher annonces par utilisateur
   public function afficher_par_utilisateur($params)
   {
-
     chargerVue("annonces/index", donnees: [
       "annonces" => null
     ]);
@@ -30,6 +29,15 @@ class AnnonceController
 
     $donnees = $this->annonce->get_annonce($params['id']);
     chargerVue("annonces/afficher", donnees: [
+      "titre" => "Annonce",
+      "annonce" => $donnees[0],
+    ]);
+  }
+
+    public function afficher_modification($params) {
+
+    $donnees = $this->annonce->get_annonce($params['id']);
+    chargerVue("annonces/modifier", donnees: [
       "titre" => "Annonce",
       "annonce" => $donnees[0],
     ]);
