@@ -25,7 +25,8 @@ class AnnonceController
     ]);
   }
 
-  public function afficher_par_annonce($params) {
+  public function afficher_par_annonce($params)
+  {
 
     $donnees = $this->annonce->get_annonce($params['id']);
     chargerVue("annonces/afficher", donnees: [
@@ -34,12 +35,32 @@ class AnnonceController
     ]);
   }
 
-    public function afficher_modification($params) {
+  public function afficher_modification($params)
+  {
 
     $donnees = $this->annonce->get_annonce($params['id']);
     chargerVue("annonces/modifier", donnees: [
       "titre" => "Annonce",
       "annonce" => $donnees[0],
     ]);
+  }
+
+  public function modifier_une_annonce()
+  {
+    $id = obtenir_id_categorie(obtenirParametre('categorie'));
+    $titre = obtenirParametre('titre');
+    $description = obtenirParametre('description');
+    $prix = obtenirParametre('prix');
+    $active =  obtenirParametre('est_actif') ? 1 : 0;
+    inspecter($active);
+    $etat = obtenirParametre('etat');
+
+    $this->annonce->modifier_annonce($id, $titre, $description, $prix, $active, $etat);
+    $donnees = $this->annonce->get_annonce($id);
+     chargerVue("annonces/afficher", donnees: [
+       "titre" => "Annonce",
+       "annonce" => $donnees[0],
+     ]);
+
   }
 }

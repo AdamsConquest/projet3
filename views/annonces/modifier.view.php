@@ -3,7 +3,6 @@
  <?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
-inspecter($annonce)
 ?>
 
 <!-- Main Content -->
@@ -20,7 +19,7 @@ inspecter($annonce)
     <h1 class="form-title"><i class="fas fa-edit me-2"></i>Modifier votre annonce</h1>
     <p class="text-muted mb-4">Mettez à jour les informations de votre annonce pour la communauté PopBazaar.</p>
 
-    <form method="POST" action="/annonces/<!-- ID de l'annonce -->">
+    <form method="POST" action="/annonces/<?php echo $annonce['id'] ?>/modifier">
       <!-- Catégorie Section -->
       <div class="form-section">
         <h3 class="form-section-title">
@@ -29,7 +28,7 @@ inspecter($annonce)
         </h3>
         <p class="text-muted mb-3">Sélectionnez la catégorie qui correspond le mieux à votre produit</p>
 
-        <input type="hidden" id="categorie" name="categorie" value="<!-- Nom de la catégorie -->">
+        <input type="hidden" id="categorie" name="categorie" value="<?php echo obtenir_nom_categorie($annonce['id']) ?>">
 
         <div class="row g-3">
           <!-- Cartes de catégorie -->

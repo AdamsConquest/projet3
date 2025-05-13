@@ -24,5 +24,13 @@ class Annonce
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
+public function modifier_annonce($id, $titre, $description, $prix, $active, $etat) {
+    $sql = "UPDATE produits SET titre = ?, description = ?, prix = ?, est_actif = ?, etat = ? WHERE id = ?";
+    $stmt = $this->bd->requete($sql, params: ["1"=>$titre, "2"=>$description, "3"=>$prix, "4"=>$active, "5"=>$etat, "6"=>$id]); 
+}
+
+
+
+
   
 }
