@@ -19,4 +19,4 @@ $routeur->post("/annonces","AnnonceController@ajouterUneAnnonce");
 $routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
 $routeur->get("/connexion", "AccueilController@afficherPageConnexion");
 $routeur->get("/inscription", "AccueilController@afficherPageInscription");
-$routeur->post("/inscription","UtilisateurController@inscrire_utilisateur");
+$routeur->post("/inscription_User","UtilisateurController@inscrire_utilisateur");

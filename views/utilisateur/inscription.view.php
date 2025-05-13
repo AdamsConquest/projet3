@@ -15,7 +15,7 @@ chargerVuePartielle('_nav');
 
     <!-- À inclure : message d'erreurs -->
 
-    <form class="register-form" method="POST" action="/inscription">
+    <form class="register-form" method="POST" action="/inscription_User">
       <div class="row mb-3">
         <div class="col-md-6 mb-3 mb-md-0">
           <input type="text" class="form-control" id="firstname" name="prenom" placeholder="Prénom" value="" required>

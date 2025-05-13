@@ -19,11 +19,20 @@ class UtilisateurController
 
   public function inscrire_utilisateur()
   {
-    $Prénom =  Validation::valider_champs('name', obtenirParametre('firstname'), ['requis']);
-    $nom = Validation::valider_champs('name', obtenirParametre('lastname'), ['requis']);
-    $nom_utilisateur = Validation::valider_champs('name', obtenirParametre('nom_utilisateur'), ['requis']);
-    $courriel = Validation::valider_champs('name', obtenirParametre('email'), ['requis']);
-    $mot_de_passe =  Validation::valider_champs('mot de passe', obtenirParametre('mot_passe'), ['min' => 2, 'max' => 50]);
-    inspecter($mot_de_passe);
+    $prenom =  Validation::valider_champs('nom', obtenirParametre('firstname'), ['requis' => true]);
+    $nom = Validation::valider_champs('nom de famille ', obtenirParametre('lastname'), ['requis' => true]);
+    $nom_utilisateur = Validation::valider_champs('nom d utlisateur', obtenirParametre('nom_utilisateur'), ['requis' => true]);
+    $courriel = Validation::valider_champs('email', obtenirParametre('email'), ['requis' => true]);
+    $mot_de_passe =  Validation::valider_champs('mot de passe', obtenirParametre('mot_passe'), ['majuscule' => true, 'chiffre' => true, 'special' => true, 'min' => 4, 'max' => 50]);
+    $mot_de_passe_confirmer = obtenirParametre('confirm-password');
+
+    if ($prenom && $nom &&  $nom_utilisateur && $courriel && $mot_de_passe) {
+      if ($mot_de_passe ==  $mot_de_passe_confirmer) {
+        $this->utilisateur->ajouter_Utilisateur(obtenir_id_categorie(obtenirParametre('firstname')), obtenirParametre('lastname'), obtenirParametre('nom_utilisateur'), obtenirParametre('email'), obtenirParametre('mot_passe'));
+        chargerVue("annonces/index", donnees: []);
+      } else {
+        //passwo  rds dont match
+      }
+    }
   }
 }

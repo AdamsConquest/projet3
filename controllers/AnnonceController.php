@@ -26,11 +26,11 @@ class AnnonceController
 
   public function ajouterUneAnnonce()
   {
-    $catergoire =  Validation::valider_champs('name', obtenirParametre('categorie'), ['requis']);
-    $titre = Validation::valider_champs('name', obtenirParametre('titre'), ['requis']);
-    $description = Validation::valider_champs('name', obtenirParametre('description'), ['requis']);
-    $prix = Validation::valider_champs('name', obtenirParametre('prix'), ['requis']);
-    $etat =  Validation::valider_champs('name', obtenirParametre('etat'), ['requis']);
+    $catergoire =  Validation::valider_champs('name', obtenirParametre('categorie'), ['requis' => true]);
+    $titre = Validation::valider_champs('name', obtenirParametre('titre'), ['requis' => true]);
+    $description = Validation::valider_champs('name', obtenirParametre('description'), ['requis' => true]);
+    $prix = Validation::valider_champs('name', obtenirParametre('prix'), ['requis' => true]);
+    $etat =  Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
 
     if ($catergoire && $titre && $description && $prix && $etat) {
       $this->annonce->ajouter_annnonce(obtenir_id_categorie(obtenirParametre('categorie')), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('etat'));
@@ -38,7 +38,8 @@ class AnnonceController
     chargerVue("annonces/index", donnees: []);
   }
 
-  public function afficher_par_annonce($params) {
+  public function afficher_par_annonce($params)
+  {
 
     $donnees = $this->annonce->get_annonce($params['id']);
     chargerVue("annonces/afficher", donnees: [
