@@ -18,6 +18,7 @@ class Annonce
     $this->bd = new Database($config); // Instance de la classe Database 
   }
 
+
   function ajouter_annnonce($categorie, $titre, $description, $prix, $etat)
   {
     $id = $_SESSION['id'];
@@ -33,4 +34,13 @@ class Annonce
     ];
     $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public function get_annonce($id) {
+    $sql = "SELECT * FROM produits WHERE id = ?";
+    $stmt = $this->bd->requete($sql, params: ["1" => $id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  
+
 }
