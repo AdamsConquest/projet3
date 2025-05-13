@@ -20,14 +20,17 @@ class Utilisateur
   function ajouter_Utilisateur($prenom, $nom, $nom_utilisateur, $courriel, $mot_de_passe)
   {
     $hashed_password = password_hash($mot_de_passe, PASSWORD_DEFAULT);
+
     $nom_table = "utilisateurs";
-    $sql = "INSERT INTO  $nom_table (nom_utilisateur, email, hashed_password  ,prenom, nom) VALUES (:nom_utilisateur, :courriel, :mot_de_passe, :prenom, :nom)";
+    $sql = "INSERT INTO $nom_table (nom_utilisateur, email, mot_de_passe_hash, prenom, nom, telephone) VALUES (:nom_utilisateur, :email, :hashed_password, :prenom, :nom, :telephone)";
+
     $params = [
       ":nom_utilisateur" => $nom_utilisateur,
       ":email" => $courriel,
-      ":mot_de_passe" => $hashed_password,
+      ":hashed_password" => $hashed_password,
       ":prenom" => $prenom,
-      ":nom" => $nom
+      ":nom" => $nom,
+      ":telephone" => ''
     ];
     $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
   }

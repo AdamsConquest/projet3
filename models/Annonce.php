@@ -23,7 +23,7 @@ class Annonce
   {
     $id = $_SESSION['id'];
     $nom_table = "produits";
-    $sql = "INSERT INTO  $nom_table (utilisateur_id, categorie_id ,titre, description, prix,etat ) VALUES (:id, :categorie, :titre, :description, :prix, :etat)";
+    $sql = "INSERT INTO  $nom_table (utilisateur_id, categorie_id ,titre, description, prix, etat ) VALUES (:id, :categorie, :titre, :description, :prix, :etat)";
     $params = [
       ":id" => $id,
       ":categorie" => $categorie,
@@ -35,12 +35,10 @@ class Annonce
     $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function get_annonce($id) {
+  public function get_annonce($id)
+  {
     $sql = "SELECT * FROM produits WHERE id = ?";
     $stmt = $this->bd->requete($sql, params: ["1" => $id]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
-
-  
-
 }
