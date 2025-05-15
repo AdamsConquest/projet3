@@ -12,12 +12,12 @@ chargerVuePartielle('_nav');
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Accueil</a></li>
-            <li class="breadcrumb-item active"><<?php echo obtenir_nom_categorie($categorie)?></li>
+            <li class="breadcrumb-item active"></li>
         </ol>
     </nav>
 
     <div class="section-header">
-        <h2><i class="fas fa-bullhorn me-2"></i><?php echo obtenir_nom_categorie($categorie)?></h2>
+        <h2><i class="fas fa-bullhorn me-2"></i></h2>
     </div>
 
 
@@ -25,6 +25,7 @@ chargerVuePartielle('_nav');
     <div class="d-flex justify-content-between align-items-center mb-4">
         <ul class="nav nav-pills tab-pills">
             <li class="nav-item">
+
                 <a class="nav-link <!-- Afficher ' active' si aucune sélection n'est faite -->" href="/annonces">Toutes (<?php echo obtenir_nbr_annonces($annonces)[0]?>)</a>
             </li>
             <li class="nav-item">
@@ -41,7 +42,7 @@ chargerVuePartielle('_nav');
     </div>
     <div class="row">
         <!-- Boucle pour afficher toutes les annonces -->
-        <?php if (!isset($annonces)) { ?>
+        <?php if (!isset($donnees["annonces"])) { ?>
 
             <!-- Empty Listings State (Hidden) -->
             <div class="empty-listings" style="display: none;">
@@ -54,7 +55,7 @@ chargerVuePartielle('_nav');
             </div>
 
             <?php } else {
-            foreach ($annonces as $annonce) { ?>
+            foreach ($donnees["annonces"] as $annonce) { ?>
                 <!-- Pour chaque annonce -->
                 <!-- Listings -->
                 <div class="col-md-6 col-lg-4">

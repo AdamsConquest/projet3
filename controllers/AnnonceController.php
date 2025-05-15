@@ -20,7 +20,17 @@ class AnnonceController
   //afficher annonces par utilisateur
   public function afficher_par_utilisateur($params)
   {
-    chargerVue("annonces/index", donnees: []);
+    if (!Session::est_connecte()) {
+      redirect("/connexion_user");
+      return;
+    }
+
+    $utilisateur_id = Session::obtenir_id_utilisateur();
+    $annonces = $this->annonce->get_annonces_par_utilisateur($utilisateur_id);
+
+    chargerVue("annonces/index", donnees: [
+      "annonces" => $annonces
+    ]);
   }
 
   public function ajouterUneAnnonce()
@@ -34,8 +44,7 @@ class AnnonceController
     if ($catergoire && $titre && $description && $prix && $etat) {
       $this->annonce->ajouter_annnonce(obtenir_id_categorie(obtenirParametre('categorie')), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('etat'));
     }
-    chargerVue("annonces/index", donnees: []);
-
+    redirect('/MesAnnonces');
   }
 
   public function afficher_par_annonce($params)
@@ -67,7 +76,7 @@ class AnnonceController
     $active = Validation::valider_champs('name', obtenirParametre('est_actif') ? 1 : 0, ['requis' => true]);
     $etat = Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
 
-    
+
     if ($categorie && $titre && $description && $prix && $active && $etat) {
       $this->annonce->modifier_annonce($params['id'], obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('est_actif') ? 1 : 0, obtenirParametre('etat'));
       $donnees = $this->annonce->get_annonce($params['id']);
@@ -78,17 +87,15 @@ class AnnonceController
     }
   }
 
-  public function marquer_vendu($params) {
+  public function marquer_vendu($params)
+  {
     $this->annonce->set_vendu_status($params['id']);
     $donnees = $this->annonce->get_annonce($params['id']);
     chargerVue("annonces/afficher", donnees: [
       "titre" => "Annonce",
       "annonce" => $donnees[0],
     ]);
-
   }
 
-  public function supprimer_une_annonce($params) {
-    
-  }
+  public function supprimer_une_annonce($params) {}
 }
