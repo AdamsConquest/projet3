@@ -233,18 +233,3 @@ function redirect($url)
   exit();
 }
 
-function obtenir_id_categorie($nom_categorie)
-{
-  $categories = [
-    "Jeux vidéo" => 1,
-    "Super-héros"=> 2,
-    "Films cultes" => 3,
-    "Séries TV" => 4
-  ];
-
-  if (!isset($categories[$nom_categorie])) {
-    return "Catégorie inconnue";
-  }
-  // Retourne le nom de la catégorie correspondante  
-  return $categories[$nom_categorie];
-}
