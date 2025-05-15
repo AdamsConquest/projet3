@@ -88,6 +88,7 @@ function obtenirParametre($identifiant)
     $parametre = filter_input(INPUT_POST, $identifiant, FILTER_SANITIZE_SPECIAL_CHARS);
   }
 
+  //inspecter($parametre);
   return $parametre;
 }
 

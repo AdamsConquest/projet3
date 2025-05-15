@@ -45,34 +45,24 @@ class AnnonceController
     ]);
   }
 
-  public function modifier_une_annonce()
+  public function modifier_une_annonce($params)
   {
-    $id = obtenir_id_categorie(obtenirParametre('categorie'));
+
+    $categorie = obtenir_id_categorie(obtenirParametre('categorie'));
     $titre = Validation::valider_champs('name', obtenirParametre('titre'), ['requis' => true]);
     $description = Validation::valider_champs('name', obtenirParametre('description'), ['requis' => true]);
     $prix = Validation::valider_champs('name', obtenirParametre('prix'), ['requis' => true]);
     $active = Validation::valider_champs('name', obtenirParametre('est_actif') ? 1 : 0, ['requis' => true]);
     $etat = Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
 
-    // inspecter($id);
-    // inspecter($titre);
-    // inspecter($description);
-    // inspecter($prix);
-    // inspecter($active);
-    // inspecter($etat);
-
-
-    if ($id && $titre && $description && $prix && $active && $etat) {
-      inspecter(obtenirParametre('categorie'));
-      $this->annonce->modifier_annonce(obtenirParametre('id'), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('est_actif') ? 1 : 0, obtenirParametre('etat'));
-      $donnees = $this->annonce->get_annonce($id);
-      inspecter($donnees);
-
-
-      // chargerVue("annonces/afficher", donnees: [
-      //   "titre" => "Annonce",
-      //   "annonce" => $donnees[0],
-      // ]);
+    
+    if ($categorie && $titre && $description && $prix && $active && $etat) {
+      $this->annonce->modifier_annonce($params['id'], obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('est_actif') ? 1 : 0, obtenirParametre('etat'));
+      $donnees = $this->annonce->get_annonce($params['id']);
+      chargerVue("annonces/afficher", donnees: [
+        "titre" => "Annonce",
+        "annonce" => $donnees[0],
+      ]);
     }
 
 

@@ -28,7 +28,7 @@ chargerVuePartielle('_nav');
         </h3>
         <p class="text-muted mb-3">Sélectionnez la catégorie qui correspond le mieux à votre produit</p>
 
-        <input type="hidden" id="categorie" name="categorie" value="<?php echo obtenir_nom_categorie($annonce['id']) ?>">
+        <input type="hidden" id="categorie" name="categorie" value="<?php echo obtenir_nom_categorie($annonce['categorie_id']) ?>">
 
         <div class="row g-3">
           <!-- Cartes de catégorie -->
