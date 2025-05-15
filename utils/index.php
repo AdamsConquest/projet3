@@ -236,6 +236,11 @@ function redirect($url)
 
 function obtenir_nbr_annonces($annonces) {
 
+  $compteur_actif = 0;
+  foreach($annonces as $annonce) {
+    //if ($annonce)
+  }
+
   return [count($annonces)];
 }
 
