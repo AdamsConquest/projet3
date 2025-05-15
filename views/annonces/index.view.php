@@ -3,6 +3,7 @@
 <?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
+inspecter($annonces);
 ?>
 
 <!-- Main Content -->
@@ -58,7 +59,7 @@ chargerVuePartielle('_nav');
                 <div class="col-md-6 col-lg-4">
                     <div class="card h-100">
                         <div class="listing-status">
-                            <span class="badge bg-success"><?php echo $annonce['etat'] ?></span>
+                            <span class="badge bg-success"><?php echo $annonce['etat']?></span>
                         </div>
                         <div class="listing-actions">
                             <div class="dropdown">
