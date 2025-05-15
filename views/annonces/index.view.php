@@ -10,12 +10,12 @@ chargerVuePartielle('_nav');
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Accueil</a></li>
-            <li class="breadcrumb-item active"><!-- Afficher le titre ici --></li>
+            <li class="breadcrumb-item active"><<?php echo obtenir_nom_categorie($categorie)?></li>
         </ol>
     </nav>
 
     <div class="section-header">
-        <h2><i class="fas fa-bullhorn me-2"></i><!-- Afficher le titre ici --></h2>
+        <h2><i class="fas fa-bullhorn me-2"></i><?php echo obtenir_nom_categorie($categorie)?></h2>
     </div>
 
 
@@ -23,7 +23,7 @@ chargerVuePartielle('_nav');
     <div class="d-flex justify-content-between align-items-center mb-4">
         <ul class="nav nav-pills tab-pills">
             <li class="nav-item">
-                <a class="nav-link <!-- Afficher ' active' si aucune sélection n'est faite -->" href="/annonces">Toutes (<!-- Afficher le nombre total d'annonces -->)</a>
+                <a class="nav-link <!-- Afficher ' active' si aucune sélection n'est faite -->" href="/annonces">Toutes (<?php echo obtenir_nom_categorie($categorie)?>)</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link <!-- Afficher ' active' si la sélection est 'actives' -->" href="/annonces?selection=actives">Actives (<!-- Afficher le nombre d'annonces actives -->)</a>

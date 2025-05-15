@@ -66,11 +66,14 @@ class Annonce
   {
     $sql = "DELETE FROM produits WHERE id = ?";
     $stmt = $this->bd->requete($sql, [$id]);
+
   }
 
-  public function set_vendu_status($id)
-  {
+  public function set_vendu_status($id) {
     $sql = "UPDATE produits SET est_vendu = ? WHERE id = ?";
     $stmt = $this->bd->requete($sql, params: ["1" => 1, "2" => $id]);
   }
 }
+
+
+
