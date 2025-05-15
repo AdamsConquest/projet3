@@ -3,9 +3,6 @@
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
 
-if(!$annonce['id']) {
-  
-}
 ?>
 
 <!-- Main Content -->

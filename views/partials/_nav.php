@@ -19,10 +19,10 @@
           </a>
           <ul class="dropdown-menu">
             <!-- À générer dynamiquement ultérieurement -->
-            <li><a class="dropdown-item" href="#">Jeux vidéo</a></li>
-            <li><a class="dropdown-item" href="#">Super-héros</a></li>
-            <li><a class="dropdown-item" href="#">Films cultes</a></li>
-            <li><a class="dropdown-item" href="#">Séries TV</a></li>
+            <li><a class="dropdown-item" href="/categories/1/annonces">Jeux vidéo</a></li>
+            <li><a class="dropdown-item" href="/categories/2/annonces">Super-héros</a></li>
+            <li><a class="dropdown-item" href="/categories/3/annonces">Films cultes</a></li>
+            <li><a class="dropdown-item" href="/categories/4/annonces">Séries TV</a></li>
           </ul>
         </li>
         <!-- Si l'utilisateur est connecté : -->
