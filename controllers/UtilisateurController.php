@@ -62,7 +62,7 @@ class UtilisateurController
     // Validate fields
     $Verification_email = Validation::valider_champs('email', $champ_email, [
       'requis' => true,
-      'email' => true  // Add email format validation if your Validation class supports it
+      'email' => true 
     ]);
     $Verification_password = Validation::valider_champs('mot de passe', $champ_password, [
       'requis' => true
@@ -73,19 +73,25 @@ class UtilisateurController
       $password = $user[0]['mot_de_passe_hash'];
 
       if (Validation::comparer_chaines($champ_email, $email) && password_verify($champ_password, $password)) {
-        Session::set('id_utilisateur', $user[0]['id']);
+
+        Session::set('id_utilisateur', [
+          'id' => $user[0]['id'],
+          'nom_utilisateur' => $user[0]['nom_utilisateur'],
+          'email' => $user[0]['email'],
+          'nom' => $user[0]['nom'],
+          'prenom' => $user[0]['prenom']
+        ]);
+       
         chargerVue("annonces/index", donnees: []);
       } else {
         chargerVue("utilisateur/connexion", donnees: ['erreur' => 'Email ou mot de passe invalide']);
       }
     }
-  } 
+  }
 
   public function deconnexion_utilisteur()
   {
-    inspecter(Session::est_connecte());
     if (Session::est_connecte()) {
-
       Session::detruire();
       Session::demarrer();
       redirect("/");

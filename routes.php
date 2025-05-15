@@ -25,6 +25,9 @@ $routeur->post("/annonces/{id}/modifier", "AnnonceController@modifier_une_annonc
 $routeur->post("/annonces/{id}/est_vendu", "AnnonceController@marquer_vendu");
 
 
+
+$routeur->get("/ajouter_annonce","AccueilController@ajouterAnnonce");
+
 //Ajout annonce
 $routeur->get("/ajouter","AccueilController@ajouterAnnonce");
 
@@ -33,8 +36,8 @@ $routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
 $routeur->get("/connexion_user", "AccueilController@afficherPageConnexion");
 $routeur->get("/inscription", "AccueilController@afficherPageInscription");
 
-$routeur->get("/deconnexion_user", "UtilisateurController@deconnexion_utilisteur");
-$routeur->post("/deconnexion", "UtilisateurController@deconnexion_utilisteur");
+//$routeur->get("/deconnexion_user", "UtilisateurController@deconnexion_utilisteur");
+$routeur->post("/deconnexion_user", "UtilisateurController@deconnexion_utilisteur");
 
 
 
