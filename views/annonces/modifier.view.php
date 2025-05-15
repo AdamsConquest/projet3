@@ -1,5 +1,9 @@
 <!-- Inclure la vue partielle _entete ici -->
 <!-- Inclure la vue partielle _nav ici -->
+ <?php
+chargerVuePartielle('_entete');
+chargerVuePartielle('_nav');
+?>
 
 <!-- Main Content -->
 <div class="container mt-4">
@@ -15,7 +19,7 @@
     <h1 class="form-title"><i class="fas fa-edit me-2"></i>Modifier votre annonce</h1>
     <p class="text-muted mb-4">Mettez à jour les informations de votre annonce pour la communauté PopBazaar.</p>
 
-    <form method="POST" action="/annonces/<!-- ID de l'annonce -->">
+    <form method="POST" action="/annonces/<?php echo $annonce['id'] ?>/modifier">
       <!-- Catégorie Section -->
       <div class="form-section">
         <h3 class="form-section-title">
@@ -24,7 +28,7 @@
         </h3>
         <p class="text-muted mb-3">Sélectionnez la catégorie qui correspond le mieux à votre produit</p>
 
-        <input type="hidden" id="categorie" name="categorie" value="<!-- Nom de la catégorie -->">
+        <input type="hidden" id="categorie" name="categorie" value="<?php echo obtenir_nom_categorie($annonce['categorie_id']) ?>">
 
         <div class="row g-3">
           <!-- Cartes de catégorie -->
@@ -41,13 +45,13 @@
 
         <div class="mb-3">
           <label for="title" class="form-label">Titre de l'annonce <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" id="title" value="<!-- titre -->" name="titre" required>
+          <input type="text" class="form-control" id="title" value="<?php echo $annonce['titre'] ?>" name="titre" required>
           <div class="form-text">Soyez précis et concis (max. 70 caractères)</div>
         </div>
 
         <div class="mb-3">
           <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="description" rows="5" name="description" required><!-- description --></textarea>
+          <textarea class="form-control" id="description" rows="5" name="description" required><?php echo $annonce['description'] ?></textarea>
           <div class="form-text">Minimum 30 caractères, évitez d'inclure vos coordonnées personnelles</div>
         </div>
 
@@ -55,14 +59,14 @@
           <div class="col-md-6 mb-3">
             <label for="prix" class="form-label">Prix ($) <span class="text-danger">*</span></label>
             <div class="input-group">
-              <input type="number" class="form-control" id="prix" name="prix" min="0" step="0.01" value="<!-- prix -->" required>
+              <input type="number" class="form-control" id="prix" name="prix" min="0" step="0.01" value="<?php echo $annonce['prix'] ?>" required>
               <span class="input-group-text">$</span>
             </div>
           </div>
 
           <div class="col-md-6 mb-3">
             <label class="form-label">État du produit <span class="text-danger">*</span></label>
-            <input type="hidden" id="etat" name="etat" value="<!-- etat -->">
+            <input type="hidden" id="etat" name="etat" value="<?php echo $annonce['etat'] ?>">
             <div>
               <!-- Boutons d’état -->
             </div>
@@ -70,7 +74,7 @@
         </div>
 
         <div class="form-check mb-3">
-          <input class="form-check-input" type="checkbox" id="active" name="est_actif" <!-- coché si actif -->>
+          <input class="form-check-input" type="checkbox" id="active" name="est_actif" <?php echo ($annonce['est_actif'] == 1) ? "checked" : ""; ?>>
           <label class="form-check-label" for="active">
             Annonce active
           </label>
