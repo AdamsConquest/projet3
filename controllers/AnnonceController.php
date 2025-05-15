@@ -52,7 +52,7 @@ class AnnonceController
 
     $donnees = $this->annonce->get_annonce($params['id']);
     chargerVue("annonces/afficher", donnees: [
-      "titre" => "Annonce"
+      "annonce" => $donnees[0]
     ]);
   }
 

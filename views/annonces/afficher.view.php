@@ -2,6 +2,8 @@
 <?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
+
+inspecter($annonce);
 ?>
 
 <!-- Main Content -->
