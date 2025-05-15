@@ -54,14 +54,25 @@ class AnnonceController
     $active = Validation::valider_champs('name', obtenirParametre('est_actif') ? 1 : 0, ['requis' => true]);
     $etat = Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
 
+    // inspecter($id);
+    // inspecter($titre);
+    // inspecter($description);
+    // inspecter($prix);
+    // inspecter($active);
+    // inspecter($etat);
+
 
     if ($id && $titre && $description && $prix && $active && $etat) {
-    $this->annonce->modifier_annonce($id, $titre, $description, $prix, $active, $etat);
-    $donnees = $this->annonce->get_annonce($id);
-    chargerVue("annonces/afficher", donnees: [
-      "titre" => "Annonce",
-      "annonce" => $donnees[0],
-    ]);
+      inspecter(obtenirParametre('categorie'));
+      $this->annonce->modifier_annonce(obtenirParametre('id'), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('est_actif') ? 1 : 0, obtenirParametre('etat'));
+      $donnees = $this->annonce->get_annonce($id);
+      inspecter($donnees);
+
+
+      // chargerVue("annonces/afficher", donnees: [
+      //   "titre" => "Annonce",
+      //   "annonce" => $donnees[0],
+      // ]);
     }
 
 
