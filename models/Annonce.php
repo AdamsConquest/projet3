@@ -21,16 +21,20 @@ class Annonce
 
   function ajouter_annnonce($categorie, $titre, $description, $prix, $etat)
   {
+    inspecter(Session::obtenir_id_utilisateur());
     $id = Session::obtenir_id_utilisateur();
     $nom_table = "produits";
-    $sql = "INSERT INTO  $nom_table (utilisateur_id, categorie_id ,titre, description, prix, etat, est_actif, est_vendu ,nombre_vues) VALUES (:id, :categorie, :titre, :description, :prix, :etat, :est_vendu ,:nombre_vues)";
+    $sql = "INSERT INTO  $nom_table (utilisateur_id, categorie_id ,titre, description, prix, etat, est_actif, est_vendu ,nombre_vues) VALUES (:id, :categorie, :titre, :description, :prix, :etat,:est_actif ,:est_vendu ,:nombre_vues)";
     $params = [
       ":id" => $id,
       ":categorie" => $categorie,
       ":titre" => $titre,
       ":description" => $description,
       ":prix" => $prix,
-      ":etat" => $etat
+      ":etat" => $etat,
+      ":est_actif" => 1,        // Added missing parameter
+      ":est_vendu" => 0,
+      ":nombre_vues" => 0
     ];
     $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
   }

@@ -60,7 +60,7 @@
                 <hr class="dropdown-divider">
               </li>
               <li>
-                <form method="POST" action="/deconnexion" class="d-inline">
+                <form method="POST" action="/deconnexion_user" class="d-inline">
                   <button type="submit" class="dropdown-item" href="/deconnexion_user"><i class="fas fa-sign-out-alt me-2"></i> Déconnexion</button>
                 </form>
               </li>
