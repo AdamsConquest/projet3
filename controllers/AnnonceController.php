@@ -51,16 +51,19 @@ class AnnonceController
     $titre = obtenirParametre('titre');
     $description = obtenirParametre('description');
     $prix = obtenirParametre('prix');
-    $active =  obtenirParametre('est_actif') ? 1 : 0;
-    inspecter($active);
+    $active = obtenirParametre('est_actif') ? 1 : 0;
     $etat = obtenirParametre('etat');
 
-    $this->annonce->modifier_annonce($id, $titre, $description, $prix, $active, $etat);
-    $donnees = $this->annonce->get_annonce($id);
-     chargerVue("annonces/afficher", donnees: [
-       "titre" => "Annonce",
-       "annonce" => $donnees[0],
-     ]);
+    if (1) {
+      $this->annonce->modifier_annonce($id, $titre, $description, $prix, $active, $etat);
+      $donnees = $this->annonce->get_annonce($id);
+      chargerVue("annonces/afficher", donnees: [
+        "titre" => "Annonce",
+        "annonce" => $donnees[0],
+      ]);
+    }
+
+
 
   }
 }
