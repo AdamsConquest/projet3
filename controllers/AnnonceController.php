@@ -79,6 +79,16 @@ class AnnonceController
     }
   }
 
+  public function marquer_vendu($params) {
+    $this->annonce->set_vendu_status($params['id']);
+    $donnees = $this->annonce->get_annonce($params['id']);
+    chargerVue("annonces/afficher", donnees: [
+      "titre" => "Annonce",
+      "annonce" => $donnees[0],
+    ]);
+
+  }
+
   public function supprimer_une_annonce($params) {
     
   }

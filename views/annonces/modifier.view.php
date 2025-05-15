@@ -106,8 +106,8 @@ chargerVuePartielle('_nav');
 </div>
 
 <!-- Formulaires cachés pour suppression et vente -->
-<form id="form-supprimer" method="POST" action="/annonces/<!-- ID -->/supprimer" style="display:none;"></form>
-<form id="form-vendue" method="POST" action="/annonces/<!-- ID -->" style="display:none;">
+<form id="form-supprimer" method="POST" action="/annonces/<?php echo $annonce['id'] ?>/supprimer" style="display:none;"></form>
+<form id="form-vendue" method="POST" action="/annonces/<?php echo $annonce['id']?>/est_vendu" style="display:none;">
   <input type="hidden" name="est_vendu" value="1">
 </form>
 
@@ -121,7 +121,7 @@ chargerVuePartielle('_nav');
       </div>
       <div class="modal-body">
         <p>Êtes-vous sûr de vouloir supprimer cette annonce ? Cette action est irréversible.</p>
-        <p class="fw-bold"><!-- Titre de l'annonce --></p>
+        <p class="fw-bold"><?php echo $annonce['titre'] ?></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -141,7 +141,7 @@ chargerVuePartielle('_nav');
       </div>
       <div class="modal-body">
         <p>Félicitations pour votre vente ! Voulez-vous marquer cette annonce comme vendue ?</p>
-        <p class="fw-bold"><!-- Titre de l'annonce --></p>
+        <p class="fw-bold"><?php echo $annonce['titre'] ?></p>
         <p class="text-muted">L'annonce sera conservée dans votre historique mais ne sera plus visible par les autres utilisateurs.</p>
       </div>
       <div class="modal-footer">
@@ -196,3 +196,6 @@ chargerVuePartielle('_nav');
 </script>
 
 <!-- Inclure la vue partielle _pied_page ici -->
+ <?php
+chargerVuePartielle('_pied_page')
+?>
