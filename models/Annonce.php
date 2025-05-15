@@ -46,6 +46,11 @@ public function modifier_annonce($id, $titre, $description, $prix, $active, $eta
     $stmt = $this->bd->requete($sql, params: ["1"=>$titre, "2"=>$description, "3"=>$prix, "4"=>$active, "5"=>$etat, "6"=>$id]); 
 }
 
+public function supprimer_annonce($id) {
+    $sql = "DELETE FROM produits WHERE id = ?";
+    $stmt = $this->bd->requete($sql, [$id]);
+}
+
 
 
 

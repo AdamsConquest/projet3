@@ -77,11 +77,9 @@ class AnnonceController
         "annonce" => $donnees[0],
       ]);
     }
+  }
 
-
-
-
-
-
+  public function supprimer_une_annonce($params) {
+    
   }
 }
