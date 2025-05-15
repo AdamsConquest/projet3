@@ -19,7 +19,7 @@ class Categorie
 
   function obtenir_annonce_par_categorie($id_categorie, $nom_table = "produits")
   {
-    $sql = "SELECT * FROM $nom_table where categorie_id = :id_categorie AND est_actif = 1";
+    $sql = "SELECT * FROM $nom_table where categorie_id = :id_categorie";
     $params = [":id_categorie"=>$id_categorie];
     return $this->bd->requete($sql,$params)->fetchAll(PDO::FETCH_ASSOC);
     

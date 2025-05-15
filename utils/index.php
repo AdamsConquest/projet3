@@ -238,9 +238,17 @@ function obtenir_nbr_annonces($annonces) {
 
   $compteur_actif = 0;
   foreach($annonces as $annonce) {
-    //if ($annonce)
+    if ($annonce['est_actif']) {
+      $compteur_actif ++;
+    }
   }
 
-  return [count($annonces)];
+  $compteur_vendu = 0;
+  foreach($annonces as $annonce) {
+    if ($annonce['est_vendu']) {
+      $compteur_vendu ++;
+    }
+  }
+  return [count($annonces), $compteur_actif, $compteur_vendu];
 }
 
