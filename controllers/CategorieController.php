@@ -20,6 +20,9 @@ class CategorieController
   public function afficher_par_categorie($params)
   {
     $resultat = $this->categorie->obtenir_annonce_par_categorie($params['id']);
+    chargerVue("annonces/index", donnees: [
+      "annonces" => $resultat
+    ]);
     return $resultat;
   }
 }
