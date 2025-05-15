@@ -234,5 +234,8 @@ function redirect($url)
 }
 
 
+function obtenir_nbr_annonces($annonces) {
 
+  return [count($annonces)];
+}
 
