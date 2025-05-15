@@ -252,3 +252,7 @@ function obtenir_nbr_annonces($annonces) {
   return [count($annonces), $compteur_actif, $compteur_vendu];
 }
 
+function obtenir_nbr_page() {
+  
+}
+
