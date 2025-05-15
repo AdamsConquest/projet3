@@ -18,10 +18,18 @@ class AccueilController
 
   public function ajouterAnnonce()
   {
-    if (isset($_SESSION['id'])) {
+    if (Session::est_connecte()) {
       chargerVue("annonces/ajouter", []);
     } else {
       chargerVue("utilisateur/connexion", []);
     }
+  }
+
+  public function afficherPageInscription(){
+    chargerVue("utilisateur/inscription");
+  }
+  
+    public function afficherPageConnexion(){
+    chargerVue("utilisateur/connexion");
   }
 }

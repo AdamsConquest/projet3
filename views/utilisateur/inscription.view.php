@@ -1,4 +1,8 @@
 <!-- À inclure : entête et navigation -->
+ <?php
+chargerVuePartielle('_entete');
+chargerVuePartielle('_nav');
+?>
 
 <!-- Register Container -->
 <div class="container">
@@ -11,7 +15,7 @@
 
     <!-- À inclure : message d'erreurs -->
 
-    <form class="register-form" method="POST" action="#">
+    <form class="register-form" method="POST" action="/inscription_User">
       <div class="row mb-3">
         <div class="col-md-6 mb-3 mb-md-0">
           <input type="text" class="form-control" id="firstname" name="prenom" placeholder="Prénom" value="" required>
@@ -57,7 +61,7 @@
 
       <div class="text-center mb-3">
         <span>Déjà inscrit? </span>
-        <a href="#" class="text-decoration-none">Se connecter</a>
+        <a href="/connexion" class="text-decoration-none">Se connecter</a>
       </div>
 
       <div class="divider">
@@ -77,3 +81,6 @@
 </div>
 
 <!-- À inclure : pied de page -->
+ <?php
+chargerVuePartielle('_pied_page');
+?>

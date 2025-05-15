@@ -10,7 +10,7 @@ class Validation
    * 
    * @return bool true si la chaîne est valide, sinon false
    */
-  public static function valider_champs($nom_champs = "champs", $val_champs, $regles = [])
+  public static function valider_champs($nom_champs = "champs", $val_champs, $regles = [] )
   {
 
     foreach ($regles as $regle => $valeur) {

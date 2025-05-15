@@ -16,7 +16,7 @@ chargerVuePartielle('_nav');
     <!-- À inclure : message d'erreurs -->
      
 
-    <form class="login-form" method="POST" action="#">
+    <form class="login-form" method="POST" action="/connexion_user">
       <div class="mb-3">
         <input type="email" class="form-control" id="email" placeholder="Adresse email" name="email" required>
       </div>
@@ -34,7 +34,7 @@ chargerVuePartielle('_nav');
 
       <div class="text-center mb-3">
         <span>Pas encore de compte? </span>
-        <a href="#" class="text-decoration-none">S'inscrire</a>
+        <a href="/inscription" class="text-decoration-none">S'inscrire</a>
       </div>
 
       <div class="divider">

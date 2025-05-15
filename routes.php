@@ -23,6 +23,19 @@ $routeur->POST("/annonces/{id}", "AnnonceController@afficher_par_annonce");
 
 
 $routeur->get("/ajouter","AccueilController@ajouterAnnonce");
-$routeur->post("/annonces","AnnonceController@ajouterUneAnnonce");
 
 $routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
+
+$routeur->get("/connexion_user", "AccueilController@afficherPageConnexion");
+$routeur->get("/inscription", "AccueilController@afficherPageInscription");
+
+$routeur->get("/deconnexion_user", "UtilisateurController@deconnexion_utilisteur");
+$routeur->post("/deconnexion", "UtilisateurController@deconnexion_utilisteur");
+
+
+
+
+$routeur->post("/annonces","AnnonceController@ajouterUneAnnonce");
+$routeur->post("/inscription_User","UtilisateurController@inscrire_utilisateur");
+$routeur->post("/connexion_user","UtilisateurController@connexion_utilisteur");
+
