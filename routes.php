@@ -15,14 +15,21 @@ $routeur->get("/", "AccueilController@index");
 $routeur->get("/categories/{id}/annonces","CategorieController@afficher_par_categorie");
 $routeur->get("/MesAnnonces","AnnonceController@afficher_par_utilisateur");
 
-$routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
+//$routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
 $routeur->get("/annonces/{id}/modifier", "AnnonceController@afficher_modification");
 
-$routeur->POST("/annonces/{id}/modifier", "AnnonceController@modifier_une_annonce");
-$routeur->POST("/annonces/{id}", "AnnonceController@afficher_par_annonce");
+//Modification annonce
+$routeur->post("/annonces/{id}/modifier", "AnnonceController@modifier_une_annonce");
+
+//Statut vente
+$routeur->post("/annonces/{id}/est_vendu", "AnnonceController@marquer_vendu");
+
 
 
 $routeur->get("/ajouter_annonce","AccueilController@ajouterAnnonce");
+
+//Ajout annonce
+$routeur->get("/ajouter","AccueilController@ajouterAnnonce");
 
 $routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
 

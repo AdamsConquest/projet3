@@ -3,6 +3,7 @@
 <?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
+inspecter($annonces);
 ?>
 
 <!-- Main Content -->
@@ -58,7 +59,7 @@ chargerVuePartielle('_nav');
                 <div class="col-md-6 col-lg-4">
                     <div class="card h-100">
                         <div class="listing-status">
-                            <span class="badge bg-success"><?php echo $annonce['etat'] ?></span>
+                            <span class="badge bg-success"><?php echo $annonce['etat']?></span>
                         </div>
                         <div class="listing-actions">
                             <div class="dropdown">
@@ -71,7 +72,7 @@ chargerVuePartielle('_nav');
                                     <li>
 
                                         <!-- Formulaire pour marquer comme vendu -->
-                                        <form id="form-vendue" method="POST" action="/annonces/<?php echo $annonce['id'] ?>">
+                                        <form id="form-vendue" method="POST" action="/annonces/<?php echo $annonce['id']?>/est_vendu">
                                             <input type="hidden" name="est_vendu" value="1">
                                             <button class="dropdown-item text-danger" type="submit"><i class="fas fa-check-circle me-2"></i>Marquer comme vendu</button>
                                         </form>
