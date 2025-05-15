@@ -3,7 +3,6 @@
 <?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
-inspecter($annonces);
 ?>
 
 <!-- Main Content -->
@@ -11,12 +10,12 @@ inspecter($annonces);
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Accueil</a></li>
-            <li class="breadcrumb-item active"><!-- Afficher le titre ici --></li>
+            <li class="breadcrumb-item active"><<?php echo obtenir_nom_categorie($categorie)?></li>
         </ol>
     </nav>
 
     <div class="section-header">
-        <h2><i class="fas fa-bullhorn me-2"></i><!-- Afficher le titre ici --></h2>
+        <h2><i class="fas fa-bullhorn me-2"></i><?php echo obtenir_nom_categorie($categorie)?></h2>
     </div>
 
 
