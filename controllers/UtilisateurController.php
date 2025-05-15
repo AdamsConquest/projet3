@@ -68,10 +68,12 @@ class UtilisateurController
 
   public function deconnexion_utilisteur()
   {
+    inspecter(Session::est_connecte());
     if (Session::est_connecte()) {
+
       Session::detruire();
       Session::demarrer();
-      redirect("/");
+      redirect("/");  
     }
     else{
        redirect("/");
