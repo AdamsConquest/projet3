@@ -3,7 +3,6 @@
 <?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
-inspecter($annonces);
 ?>
 
 <!-- Main Content -->
@@ -40,7 +39,7 @@ inspecter($annonces);
     </div>
     <div class="row">
         <!-- Boucle pour afficher toutes les annonces -->
-        <?php if (!isset($annonces)) { ?>
+        <?php if (!isset($donnees["annonces"])) { ?>
 
             <!-- Empty Listings State (Hidden) -->
             <div class="empty-listings" style="display: none;">
@@ -53,7 +52,7 @@ inspecter($annonces);
             </div>
 
             <?php } else {
-            foreach ($annonces as $annonce) { ?>
+            foreach ($donnees["annonces"] as $annonce) { ?>
                 <!-- Pour chaque annonce -->
                 <!-- Listings -->
                 <div class="col-md-6 col-lg-4">

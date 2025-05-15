@@ -21,7 +21,6 @@ class Annonce
 
   function ajouter_annnonce($categorie, $titre, $description, $prix, $etat)
   {
-    inspecter(Session::obtenir_id_utilisateur());
     $id = Session::obtenir_id_utilisateur();
     $nom_table = "produits";
     $sql = "INSERT INTO  $nom_table (utilisateur_id, categorie_id ,titre, description, prix, etat, est_actif, est_vendu ,nombre_vues) VALUES (:id, :categorie, :titre, :description, :prix, :etat,:est_actif ,:est_vendu ,:nombre_vues)";
@@ -32,11 +31,20 @@ class Annonce
       ":description" => $description,
       ":prix" => $prix,
       ":etat" => $etat,
-      ":est_actif" => 1, 
+      ":est_actif" => 1,
       ":est_vendu" => 0,
       ":nombre_vues" => 0
     ];
     $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function get_annonces_par_utilisateur($utilisateur_id)
+  {
+    $sql = "SELECT * FROM produits WHERE utilisateur_id = :utilisateur_id ORDER BY date_creation DESC";
+    $params = [
+      ":utilisateur_id" => $utilisateur_id
+    ];
+    return $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function get_annonce($id)
@@ -58,14 +66,11 @@ class Annonce
   {
     $sql = "DELETE FROM produits WHERE id = ?";
     $stmt = $this->bd->requete($sql, [$id]);
-
   }
 
-}
-
-public function set_vendu_status($id) {
+  public function set_vendu_status($id)
+  {
     $sql = "UPDATE produits SET est_vendu = ? WHERE id = ?";
-    $stmt = $this->bd->requete($sql, params: ["1"=>1, "2"=>$id]); 
-}
-
+    $stmt = $this->bd->requete($sql, params: ["1" => 1, "2" => $id]);
+  }
 }

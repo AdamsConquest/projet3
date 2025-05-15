@@ -62,7 +62,7 @@ class UtilisateurController
     // Validate fields
     $Verification_email = Validation::valider_champs('email', $champ_email, [
       'requis' => true,
-      'email' => true 
+      'email' => true
     ]);
     $Verification_password = Validation::valider_champs('mot de passe', $champ_password, [
       'requis' => true
@@ -81,8 +81,15 @@ class UtilisateurController
           'nom' => $user[0]['nom'],
           'prenom' => $user[0]['prenom']
         ]);
-       
-        chargerVue("annonces/index", donnees: []);
+
+        require_once get_chemin_defaut('models/Annonce.php');
+        $annonce = new Annonce();
+        $utilisateur_id = Session::obtenir_id_utilisateur();
+        $annonces = $annonce->get_annonces_par_utilisateur($utilisateur_id);
+
+        chargerVue("annonces/index", donnees: [
+          "annonces" => $annonces 
+        ]);
       } else {
         chargerVue("utilisateur/connexion", donnees: ['erreur' => 'Email ou mot de passe invalide']);
       }
