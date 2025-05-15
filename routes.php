@@ -12,6 +12,7 @@
  */
 
 $routeur->get("/", "AccueilController@index");
+
 $routeur->get("/categories/{id}/annonces","CategorieController@afficher_par_categorie");
 $routeur->get("/MesAnnonces","AnnonceController@afficher_par_utilisateur");
 
