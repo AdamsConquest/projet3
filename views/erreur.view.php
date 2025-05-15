@@ -1,4 +1,10 @@
 <!-- À inclure : entête et navigation -->
+<?php
+chargerVuePartielle('_entete');
+?>
+
+
+
 
 <div class="container">
   <div class="error-container">

@@ -2,7 +2,6 @@
 <?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
-
 ?>
 
 <!-- Main Content -->

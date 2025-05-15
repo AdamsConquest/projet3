@@ -234,5 +234,25 @@ function redirect($url)
 }
 
 
+function obtenir_nbr_annonces($annonces) {
 
+  $compteur_actif = 0;
+  foreach($annonces as $annonce) {
+    if ($annonce['est_actif']) {
+      $compteur_actif ++;
+    }
+  }
+
+  $compteur_vendu = 0;
+  foreach($annonces as $annonce) {
+    if ($annonce['est_vendu']) {
+      $compteur_vendu ++;
+    }
+  }
+  return [count($annonces), $compteur_actif, $compteur_vendu];
+}
+
+function obtenir_nbr_page() {
+  
+}
 

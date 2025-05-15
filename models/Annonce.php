@@ -70,9 +70,12 @@ class Annonce
   }
 
   public function set_vendu_status($id) {
-    $sql = "UPDATE produits SET est_vendu = ? WHERE id = ?";
-    $stmt = $this->bd->requete($sql, params: ["1" => 1, "2" => $id]);
-  }
+
+    $sql = "UPDATE produits SET est_vendu = ?, est_actif = ? WHERE id = ?";
+    $stmt = $this->bd->requete($sql, params: ["1"=>1, "2"=>0 , "3"=>$id]); 
+}
+
+
 }
 
 
