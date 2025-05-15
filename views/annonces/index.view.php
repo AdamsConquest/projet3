@@ -33,7 +33,7 @@ chargerVuePartielle('_nav');
             </li>
         </ul>
 
-        <a href="/annonces/ajouter" class="btn btn-primary">
+        <a href="/ajouter_annonce" class="btn btn-primary">
             <i class="fas fa-plus-circle me-2"></i>Créer une annonce
         </a>
     </div>

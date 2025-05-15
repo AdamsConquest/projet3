@@ -21,9 +21,9 @@ class Annonce
 
   function ajouter_annnonce($categorie, $titre, $description, $prix, $etat)
   {
-    $id = $_SESSION['id'];
+    $id = Session::obtenir_id_utilisateur();
     $nom_table = "produits";
-    $sql = "INSERT INTO  $nom_table (utilisateur_id, categorie_id ,titre, description, prix, etat ) VALUES (:id, :categorie, :titre, :description, :prix, :etat)";
+    $sql = "INSERT INTO  $nom_table (utilisateur_id, categorie_id ,titre, description, prix, etat, est_actif, est_vendu ,nombre_vues) VALUES (:id, :categorie, :titre, :description, :prix, :etat, :est_vendu ,:nombre_vues)";
     $params = [
       ":id" => $id,
       ":categorie" => $categorie,
@@ -44,15 +44,15 @@ class Annonce
 
 
 
-public function modifier_annonce($id, $titre, $description, $prix, $active, $etat) {
+  public function modifier_annonce($id, $titre, $description, $prix, $active, $etat)
+  {
     $sql = "UPDATE produits SET titre = ?, description = ?, prix = ?, est_actif = ?, etat = ? WHERE id = ?";
-    $stmt = $this->bd->requete($sql, params: ["1"=>$titre, "2"=>$description, "3"=>$prix, "4"=>$active, "5"=>$etat, "6"=>$id]); 
-}
+    $stmt = $this->bd->requete($sql, params: ["1" => $titre, "2" => $description, "3" => $prix, "4" => $active, "5" => $etat, "6" => $id]);
+  }
 
-public function supprimer_annonce($id) {
+  public function supprimer_annonce($id)
+  {
     $sql = "DELETE FROM produits WHERE id = ?";
     $stmt = $this->bd->requete($sql, [$id]);
-}
-
-
+  }
 }

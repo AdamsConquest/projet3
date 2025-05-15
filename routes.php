@@ -22,7 +22,7 @@ $routeur->POST("/annonces/{id}/modifier", "AnnonceController@modifier_une_annonc
 $routeur->POST("/annonces/{id}", "AnnonceController@afficher_par_annonce");
 
 
-$routeur->get("/ajouter","AccueilController@ajouterAnnonce");
+$routeur->get("/ajouter_annonce","AccueilController@ajouterAnnonce");
 
 $routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
 
