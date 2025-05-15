@@ -1,4 +1,8 @@
 <!-- À inclure : entête et navigation -->
+<?php
+chargerVuePartielle('_entete');
+chargerVuePartielle('_nav');
+?>
 
 <!-- Login Container -->
 <div class="container">
@@ -10,6 +14,7 @@
     </div>
 
     <!-- À inclure : message d'erreurs -->
+     
 
     <form class="login-form" method="POST" action="#">
       <div class="mb-3">
@@ -49,3 +54,6 @@
 </div>
 
 <!-- À inclure : pied de page -->
+<?php
+chargerVuePartielle('_pied_page');
+?>

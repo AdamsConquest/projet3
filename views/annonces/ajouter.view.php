@@ -1,5 +1,9 @@
 <!-- Inclure l'entête ici -->
 <!-- Inclure la navigation ici -->
+<?php
+chargerVuePartielle('_entete');
+chargerVuePartielle('_nav');
+?>
 
 <!-- Main Content -->
 <div class="container">
@@ -107,7 +111,7 @@
         <button type="submit" class="btn btn-primary">
           <i class="fas fa-paper-plane me-2"></i>Publier l'annonce
         </button>
-      </div>
+      </div>  
     </form>
   </div>
 </div>
@@ -145,3 +149,6 @@
   }
 </script>
 <!-- Inclure le pied de page ici -->
+<?php
+chargerVuePartielle('_pied_page');
+?>

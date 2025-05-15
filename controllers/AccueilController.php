@@ -15,4 +15,13 @@ class AccueilController
       "titre" => "Accueil",
     ]);
   }
+
+  public function ajouterAnnonce()
+  {
+    if (isset($_SESSION['id'])) {
+      chargerVue("annonces/ajouter", []);
+    } else {
+      chargerVue("utilisateur/connexion", []);
+    }
+  }
 }

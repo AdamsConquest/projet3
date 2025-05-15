@@ -20,9 +20,22 @@ class AnnonceController
   //afficher annonces par utilisateur
   public function afficher_par_utilisateur($params)
   {
-    chargerVue("annonces/index", donnees: [
-      "annonces" => null
-    ]);
+    chargerVue("annonces/index", donnees: []);
+  }
+
+  public function ajouterUneAnnonce()
+  {
+    $catergoire =  Validation::valider_champs('name', obtenirParametre('categorie'), ['requis']);
+    $titre = Validation::valider_champs('name', obtenirParametre('titre'), ['requis']);
+    $description = Validation::valider_champs('name', obtenirParametre('description'), ['requis']);
+    $prix = Validation::valider_champs('name', obtenirParametre('prix'), ['requis']);
+    $etat =  Validation::valider_champs('name', obtenirParametre('etat'), ['requis']);
+
+    if ($catergoire && $titre && $description && $prix && $etat) {
+      $this->annonce->ajouter_annnonce(obtenir_id_categorie(obtenirParametre('categorie')), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('etat'));
+    }
+    chargerVue("annonces/index", donnees: []);
+
   }
 
   public function afficher_par_annonce($params)
