@@ -25,7 +25,7 @@ class UtilisateurController
     $courriel = Validation::valider_champs('email', obtenirParametre('email'), ['requis' => true]);
     $mot_de_passe =  Validation::valider_champs('password', obtenirParametre('confirmation_mot_passe'), [
       'requis' => true,
-      'majuscule' => true, 
+      'majuscule' => true,
       'chiffre' => true,
       'special' => true,
       'min' => 8
@@ -43,13 +43,38 @@ class UtilisateurController
     }
   }
 
-  public function connexion_utilisteur(){
-      $email = Validation::valider_champs('email', obtenirParametre('email'), ['requis' => true]);
-      $password =   Validation::valider_champs('mot de passe', obtenirParametre('mot_passe'), ['requis' => true]);
+  public function connexion_utilisteur()
+  {
+    $champ_email = obtenirParametre('email');
+    $champ_password = obtenirParametre('mot_passe');
 
-      if(){
-        
+    $Verification_email = Validation::valider_champs('email', $champ_email, ['requis' => true]);
+    $Verification_password =   Validation::valider_champs('mot de passe', $champ_password, ['requis' => true]);
+
+    if ($Verification_email && $Verification_password) {
+      $user = $this->utilisateur->utilisateur_dans_BD($champ_email);
+      $email = $user[0]['email'];
+      $password = $user[0]['mot_de_passe_hash'];
+
+      if ($email == $champ_email && password_verify($champ_password, $password)) {
+        Session::set('id_utilisateur', $this->utilisateur->utilisateur_dans_BD(obtenirParametre('email'))[0]['id']);
+        inspecter($_SESSION);
+        chargerVue("annonces/index", donnees: []);
+      } else {
+        chargerVue("utilisateur/connexion", donnees: []);
       }
+    }
+  }
 
+  public function deconnexion_utilisteur()
+  {
+    if (Session::est_connecte()) {
+      Session::detruire();
+      Session::demarrer();
+      redirect("/");
+    }
+    else{
+       redirect("/");
+    }
   }
 }

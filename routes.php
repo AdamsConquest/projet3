@@ -20,6 +20,10 @@ $routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
 $routeur->get("/connexion", "AccueilController@afficherPageConnexion");
 $routeur->get("/inscription", "AccueilController@afficherPageInscription");
 
+$routeur->get("/deconnexion_user", "UtilisateurController@deconnexion_utilisteur");
+
+
+
 
 $routeur->post("/annonces","AnnonceController@ajouterUneAnnonce");
 $routeur->post("/inscription_User","UtilisateurController@inscrire_utilisateur");

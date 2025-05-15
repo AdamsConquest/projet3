@@ -58,7 +58,7 @@
             </li>
             <li>
               <form method="POST" action="#" class="d-inline">
-                <button type="submit" class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Déconnexion</button>
+                <button type="submit" class="dropdown-item" href="/deconnexion_user"><i class="fas fa-sign-out-alt me-2"></i> Déconnexion</button>
               </form>
             </li>
           </ul>
