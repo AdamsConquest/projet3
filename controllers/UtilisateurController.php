@@ -17,13 +17,15 @@ class UtilisateurController
     $this->utilisateur = new Utilisateur(); // instance du modèle Utilisateur
   }
 
+
+
   public function inscrire_utilisateur()
   {
-    $prenom =  Validation::valider_champs('nom', obtenirParametre('prenom'), ['requis' => true]);
-    $nom = Validation::valider_champs('nom de famille ', obtenirParametre('nom'), ['requis' => true]);
-    $nom_utilisateur = Validation::valider_champs('nom d\'utlisateur', obtenirParametre('nom_utilisateur'), ['requis' => true]);
+    $prenom = Validation::valider_champs('nom', obtenirParametre('prenom'), ['requis' => true]);
+    $nom = Validation::valider_champs('nom de famille', obtenirParametre('nom'), ['requis' => true]);
+    $nom_utilisateur = Validation::valider_champs('nom d\'utilisateur', obtenirParametre('nom_utilisateur'), ['requis' => true]);
     $courriel = Validation::valider_champs('email', obtenirParametre('email'), ['requis' => true]);
-    $mot_de_passe =  Validation::valider_champs('password', obtenirParametre('confirmation_mot_passe'), [
+    $mot_de_passe = Validation::valider_champs('password', obtenirParametre('mot_passe'), [
       'requis' => true,
       'majuscule' => true,
       'chiffre' => true,
@@ -32,13 +34,38 @@ class UtilisateurController
     ]);
     $mot_de_passe_confirmer = obtenirParametre('confirmation_mot_passe');
 
-    if ($prenom && $nom &&  $nom_utilisateur && $courriel && $mot_de_passe) {
-      if ($mot_de_passe ==  $mot_de_passe_confirmer) {
-        $this->utilisateur->ajouter_Utilisateur(obtenirParametre('prenom'), obtenirParametre('nom'), obtenirParametre('nom_utilisateur'), obtenirParametre('email'), obtenirParametre('mot_passe'));
-        chargerVue("annonces/index", donnees: []);
+    if ($prenom && $nom && $nom_utilisateur && $courriel && $mot_de_passe) {
+      if ($mot_de_passe == $mot_de_passe_confirmer) {
+        // Ajouter l'utilisateur et récupérer ses données
+        $this->utilisateur->ajouter_Utilisateur(
+          obtenirParametre('prenom'),
+          obtenirParametre('nom'),
+          obtenirParametre('nom_utilisateur'),
+          obtenirParametre('email'),
+          obtenirParametre('mot_passe')
+        );
+        $nouveau_utilisateur = $this->utilisateur->utilisateur_dans_BD(obtenirParametre('email'));
+        // Connecter automatiquement l'utilisateur
+        if ($nouveau_utilisateur) {
+          Session::set('id_utilisateur', [
+            'id' => $nouveau_utilisateur[0]['id'],
+          'nom_utilisateur' => $nouveau_utilisateur[0]['nom_utilisateur'],
+          'email' => $nouveau_utilisateur[0]['email'],
+          'nom' => $nouveau_utilisateur[0]['nom'],
+          'prenom' => $nouveau_utilisateur[0]['prenom']
+          ]);
+
+          // Rediriger vers Mes annonces
+          redirect('/MesAnnonces');
+        }
       } else {
-        //passwo  rds dont match
-        inspecter("passwords dont match");
+        chargerVue("utilisateur/inscription", donnees: [
+          'erreur' => 'Les mots de passe ne correspondent pas',
+          'prenom' => $prenom,
+          'nom' => $nom,
+          'email' => $courriel,
+          'nom_utilisateur' => $nom_utilisateur
+        ]);
       }
     }
   }
@@ -88,7 +115,7 @@ class UtilisateurController
         $annonces = $annonce->get_annonces_par_utilisateur($utilisateur_id);
 
         chargerVue("annonces/index", donnees: [
-          "annonces" => $annonces 
+          "annonces" => $annonces
         ]);
       } else {
         chargerVue("utilisateur/connexion", donnees: ['erreur' => 'Email ou mot de passe invalide']);

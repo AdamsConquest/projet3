@@ -17,11 +17,9 @@ class CategorieController
   }
 
   //afficher annonces par categorie
-  public function afficher_par_categorie($params){
-   $resultat = $this->categorie->obtenir_annonce_par_categorie($params['id']);
-   chargerVue("annonces/index", donnees:[ 
-    "annonces" => $resultat,
-    "categorie" => $params['id']
-   ]);
-   }
+  public function afficher_par_categorie($params)
+  {
+    $resultat = $this->categorie->obtenir_annonce_par_categorie($params['id']);
+    return $resultat;
+  }
 }

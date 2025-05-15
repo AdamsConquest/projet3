@@ -44,7 +44,7 @@ class AnnonceController
     if ($catergoire && $titre && $description && $prix && $etat) {
       $this->annonce->ajouter_annnonce(obtenir_id_categorie(obtenirParametre('categorie')), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('etat'));
     }
-    chargerVue("annonces/index", donnees: []);
+    redirect('/MesAnnonces');
   }
 
   public function afficher_par_annonce($params)
