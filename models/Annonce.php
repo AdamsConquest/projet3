@@ -32,7 +32,7 @@ class Annonce
       ":description" => $description,
       ":prix" => $prix,
       ":etat" => $etat,
-      ":est_actif" => 1,        // Added missing parameter
+      ":est_actif" => 1, 
       ":est_vendu" => 0,
       ":nombre_vues" => 0
     ];

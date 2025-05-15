@@ -62,7 +62,7 @@ class UtilisateurController
     // Validate fields
     $Verification_email = Validation::valider_champs('email', $champ_email, [
       'requis' => true,
-      'email' => true  // Add email format validation if your Validation class supports it
+      'email' => true 
     ]);
     $Verification_password = Validation::valider_champs('mot de passe', $champ_password, [
       'requis' => true
