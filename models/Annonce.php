@@ -51,6 +51,11 @@ public function supprimer_annonce($id) {
     $stmt = $this->bd->requete($sql, [$id]);
 }
 
+public function set_vendu_status($id) {
+    $sql = "UPDATE produits SET est_vendu = ? WHERE id = ?";
+    $stmt = $this->bd->requete($sql, params: ["1"=>1, "2"=>$id]); 
+}
+
 
 
 

@@ -1,5 +1,5 @@
 <!-- À inclure : entête et navigation -->
- <?php
+<?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
 
@@ -87,7 +87,7 @@ chargerVuePartielle('_nav');
   }
 
   // Toggle favorite button
-  document.getElementById('favoriteBtn').addEventListener('click', function() {
+  document.getElementById('favoriteBtn').addEventListener('click', function () {
     this.classList.toggle('active');
   });
 
@@ -109,4 +109,6 @@ chargerVuePartielle('_nav');
 </script>
 
 <!-- À inclure : pied de page -->
- 
+<?php
+chargerVuePartielle('_pied_page')
+  ?>
