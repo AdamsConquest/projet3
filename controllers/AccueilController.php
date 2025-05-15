@@ -18,7 +18,7 @@ class AccueilController
 
   public function ajouterAnnonce()
   {
-    if (isset($_SESSION['id'])) {
+    if (Session::est_connecte()) {
       chargerVue("annonces/ajouter", []);
     } else {
       chargerVue("utilisateur/connexion", []);

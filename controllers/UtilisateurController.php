@@ -45,26 +45,41 @@ class UtilisateurController
 
   public function connexion_utilisteur()
   {
+    // Get parameters
     $champ_email = obtenirParametre('email');
     $champ_password = obtenirParametre('mot_passe');
 
-    $Verification_email = Validation::valider_champs('email', $champ_email, ['requis' => true]);
-    $Verification_password =   Validation::valider_champs('mot de passe', $champ_password, ['requis' => true]);
+    // Check if the user exists first
+    $user = $this->utilisateur->utilisateur_dans_BD($champ_email);
+
+    // Add null check for user
+    if (!$user || empty($user)) {
+      // User not found
+      chargerVue("utilisateur/connexion", donnees: ['erreur' => 'Email ou mot de passe invalide']);
+      return;
+    }
+
+    // Validate fields
+    $Verification_email = Validation::valider_champs('email', $champ_email, [
+      'requis' => true,
+      'email' => true  // Add email format validation if your Validation class supports it
+    ]);
+    $Verification_password = Validation::valider_champs('mot de passe', $champ_password, [
+      'requis' => true
+    ]);
 
     if ($Verification_email && $Verification_password) {
-      $user = $this->utilisateur->utilisateur_dans_BD($champ_email);
       $email = $user[0]['email'];
       $password = $user[0]['mot_de_passe_hash'];
 
-      if ($email == $champ_email && password_verify($champ_password, $password)) {
-        Session::set('id_utilisateur', $this->utilisateur->utilisateur_dans_BD(obtenirParametre('email'))[0]['id']);
-        inspecter($_SESSION);
+      if (Validation::comparer_chaines($champ_email, $email) && password_verify($champ_password, $password)) {
+        Session::set('id_utilisateur', $user[0]['id']);
         chargerVue("annonces/index", donnees: []);
       } else {
-        chargerVue("utilisateur/connexion", donnees: []);
+        chargerVue("utilisateur/connexion", donnees: ['erreur' => 'Email ou mot de passe invalide']);
       }
     }
-  }
+  } 
 
   public function deconnexion_utilisteur()
   {
@@ -73,10 +88,9 @@ class UtilisateurController
 
       Session::detruire();
       Session::demarrer();
-      redirect("/");  
-    }
-    else{
-       redirect("/");
+      redirect("/");
+    } else {
+      redirect("/");
     }
   }
 }

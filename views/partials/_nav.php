@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Accueil</a>
+          <a class="nav-link" href="/">Accueil</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -70,7 +70,7 @@
       <?php } else { ?>
         <!-- Sinon (utilisateur non connecté) : -->
         <div class="d-flex align-items-center">
-          <a href="/connexion" class="btn btn-dark me-2">Se connecter</a>
+          <a href="/connexion_user" class="btn btn-dark me-2">Se connecter</a>
           <a href="/inscription" class="btn btn-dark">S'inscrire</a>
         </div>
       <?php } ?>

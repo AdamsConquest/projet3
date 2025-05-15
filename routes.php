@@ -17,7 +17,7 @@ $routeur->get("/MesAnnonces","AnnonceController@afficher_par_utilisateur");
 $routeur->get("/ajouter","AccueilController@ajouterAnnonce");
 
 $routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
-$routeur->get("/connexion", "AccueilController@afficherPageConnexion");
+$routeur->get("/connexion_user", "AccueilController@afficherPageConnexion");
 $routeur->get("/inscription", "AccueilController@afficherPageInscription");
 
 $routeur->get("/deconnexion_user", "UtilisateurController@deconnexion_utilisteur");
