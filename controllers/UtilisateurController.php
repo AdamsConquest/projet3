@@ -49,10 +49,10 @@ class UtilisateurController
         if ($nouveau_utilisateur) {
           Session::set('id_utilisateur', [
             'id' => $nouveau_utilisateur[0]['id'],
-          'nom_utilisateur' => $nouveau_utilisateur[0]['nom_utilisateur'],
-          'email' => $nouveau_utilisateur[0]['email'],
-          'nom' => $nouveau_utilisateur[0]['nom'],
-          'prenom' => $nouveau_utilisateur[0]['prenom']
+            'nom_utilisateur' => $nouveau_utilisateur[0]['nom_utilisateur'],
+            'email' => $nouveau_utilisateur[0]['email'],
+            'nom' => $nouveau_utilisateur[0]['nom'],
+            'prenom' => $nouveau_utilisateur[0]['prenom']
           ]);
 
           // Rediriger vers Mes annonces
@@ -78,6 +78,7 @@ class UtilisateurController
 
     // Check if the user exists first
     $user = $this->utilisateur->utilisateur_dans_BD($champ_email);
+
 
     // Add null check for user
     if (!$user || empty($user)) {
