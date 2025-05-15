@@ -48,8 +48,6 @@ class AnnonceController
   public function modifier_une_annonce()
   {
     $id = obtenir_id_categorie(obtenirParametre('categorie'));
-
-
     $titre = Validation::valider_champs('name', obtenirParametre('titre'), ['requis' => true]);
     $description = Validation::valider_champs('name', obtenirParametre('description'), ['requis' => true]);
     $prix = Validation::valider_champs('name', obtenirParametre('prix'), ['requis' => true]);
@@ -57,14 +55,16 @@ class AnnonceController
     $etat = Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
 
 
-
-
+    if ($id && $titre && $description && $prix && $active && $etat) {
     $this->annonce->modifier_annonce($id, $titre, $description, $prix, $active, $etat);
     $donnees = $this->annonce->get_annonce($id);
     chargerVue("annonces/afficher", donnees: [
       "titre" => "Annonce",
       "annonce" => $donnees[0],
     ]);
+    }
+
+
 
 
 
