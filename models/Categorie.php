@@ -17,11 +17,31 @@ class Categorie
     $this->bd = new Database($config);  // Instance de la classe Database 
   }
 
-  function obtenir_annonce_par_categorie($id_categorie, $nom_table = "produits")
+  // function obtenir_annonce_par_categorie($id_categorie, $nom_table = "produits")
+  // {
+  //   $sql = "SELECT * FROM $nom_table where categorie_id = :id_categorie";
+  //   $params = [":id_categorie"=>$id_categorie];
+  //   return $this->bd->requete($sql,$params)->fetchAll(PDO::FETCH_ASSOC);
+
+  // }
+
+  public function obtenir_annonce_par_categorie($idCategorie, $limite, $offset)
   {
-    $sql = "SELECT * FROM $nom_table where categorie_id = :id_categorie";
-    $params = [":id_categorie"=>$id_categorie];
-    return $this->bd->requete($sql,$params)->fetchAll(PDO::FETCH_ASSOC);
-    
+    $sql = "SELECT * FROM produits WHERE categorie_id = ? LIMIT ? OFFSET ?";
+    return $this->bd->requete($sql, [
+      1 => $idCategorie,
+      2 => $limite,
+      3 => $offset
+    ]);
   }
+
+public function compter_annonces_par_categorie($idCategorie)
+{
+    $sql = "SELECT COUNT(*) as total FROM produits WHERE categorie_id = ?";
+    $stmt = $this->bd->requete($sql, [1 => $idCategorie]);
+    $row = $stmt->fetch();
+    return (int)$row['total'];
+}
+
+
 }

@@ -26,13 +26,16 @@ chargerVuePartielle('_nav');
         <ul class="nav nav-pills tab-pills">
             <li class="nav-item">
 
-                <a class="nav-link <!-- Afficher ' active' si aucune sélection n'est faite -->" href="/annonces">Toutes (<?php echo obtenir_nbr_annonces($annonces)[0]?>)</a>
+                <a class="nav-link <!-- Afficher ' active' si aucune sélection n'est faite -->" href="/annonces">Toutes
+                    (<?php echo obtenir_nbr_annonces($annonces)[0] ?>)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <!-- Afficher ' active' si la sélection est 'actives' -->" href="/annonces?selection=actives">Actives (<?php echo obtenir_nbr_annonces($annonces)[1]?>)</a>
+                <a class="nav-link <!-- Afficher ' active' si la sélection est 'actives' -->"
+                    href="/annonces?selection=actives">Actives (<?php echo obtenir_nbr_annonces($annonces)[1] ?>)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <!-- Afficher ' active' si la sélection est 'vendues' -->" href="/annonces?selection=vendues">Vendues (<?php echo obtenir_nbr_annonces($annonces)[2]?>)</a>
+                <a class="nav-link <!-- Afficher ' active' si la sélection est 'vendues' -->"
+                    href="/annonces?selection=vendues">Vendues (<?php echo obtenir_nbr_annonces($annonces)[2] ?>)</a>
             </li>
         </ul>
 
@@ -54,14 +57,14 @@ chargerVuePartielle('_nav');
                 </a>
             </div>
 
-            <?php } else {
+        <?php } else {
             foreach ($donnees["annonces"] as $annonce) { ?>
                 <!-- Pour chaque annonce -->
                 <!-- Listings -->
                 <div class="col-md-6 col-lg-4">
                     <div class="card h-100">
                         <div class="listing-status">
-                            <span class="badge bg-success"><?php echo $annonce['etat']?></span>
+                            <span class="badge bg-success"><?php echo $annonce['etat'] ?></span>
                         </div>
                         <div class="listing-actions">
                             <div class="dropdown">
@@ -69,14 +72,17 @@ chargerVuePartielle('_nav');
                                     <i class="fas fa-ellipsis-v"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>"><i class="fas fa-eye me-2"></i>Voir</a></li>
-                                    <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>/modifier"><i class="fas fa-edit me-2"></i>Modifier</a></li>
+                                    <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>"><i
+                                                class="fas fa-eye me-2"></i>Voir</a></li>
+                                    <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>/modifier"><i
+                                                class="fas fa-edit me-2"></i>Modifier</a></li>
                                     <li>
-
                                         <!-- Formulaire pour marquer comme vendu -->
-                                        <form id="form-vendue" method="POST" action="/annonces/<?php echo $annonce['id']?>/est_vendu">
+                                        <form id="form-vendue" method="POST"
+                                            action="/annonces/<?php echo $annonce['id'] ?>/est_vendu">
                                             <input type="hidden" name="est_vendu" value="1">
-                                            <button class="dropdown-item text-danger" type="submit"><i class="fas fa-check-circle me-2"></i>Marquer comme vendu</button>
+                                            <button class="dropdown-item text-danger" type="submit"><i
+                                                    class="fas fa-check-circle me-2"></i>Marquer comme vendu</button>
                                         </form>
 
 
@@ -87,7 +93,8 @@ chargerVuePartielle('_nav');
                                     <li>
 
                                         <form method="POST" action="/annonces/<?php echo $annonce['id'] ?>/supprimer">
-                                            <button class="dropdown-item text-danger" type="submit"><i class="fas fa-trash-alt me-2"></i>Supprimer</button>
+                                            <button class="dropdown-item text-danger" type="submit"><i
+                                                    class="fas fa-trash-alt me-2"></i>Supprimer</button>
                                         </form>
                                 </ul>
                             </div>
@@ -97,7 +104,8 @@ chargerVuePartielle('_nav');
                             <h5 class="card-title"><?php echo $annonce['titre'] ?></h5>
                             <div class="mb-2">
                                 <span class="price-tag"><?php echo $annonce['prix'] ?></span>
-                                <span class="badge bg-primary ms-2"><?php echo obtenir_nom_categorie($annonce['categorie_id']) ?></span>
+                                <span
+                                    class="badge bg-primary ms-2"><?php echo obtenir_nom_categorie($annonce['categorie_id']) ?></span>
                                 <span class="badge bg-secondary ms-2"><?php echo $annonce['etat'] ?></span>
                                 <!-- Si le produit est vendu -->
                                 <?php if ($annonce['est_vendu'] == 0) { ?>
@@ -112,13 +120,14 @@ chargerVuePartielle('_nav');
                         <div class="card-footer bg-white">
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted">Publiée <?php echo il_y_a($annonce['date_creation']) ?></small>
-                                <span class="text-muted"><i class="fas fa-eye me-1"></i> <?php echo $annonce['nombre_vues'] ?></span>
+                                <span class="text-muted"><i class="fas fa-eye me-1"></i>
+                                    <?php echo $annonce['nombre_vues'] ?></span>
                             </div>
                         </div>
                     </div>
                 </div>
-         <?php } ?>
-      <?php } ?>
+            <?php } ?>
+        <?php } ?>
         <!-- Fin de la boucle -->
     </div>
 
@@ -128,28 +137,31 @@ chargerVuePartielle('_nav');
 
 
     <!-- Pagination -->
-    <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
+    <?php if (isset($totalPages) && $totalPages > 1): ?>
+        <nav>
+            <ul class="pagination justify-content-center">
+                <?php if ($page > 1): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?php echo $page - 1; ?>">Précédent</a>
+                    </li>
+                <?php endif; ?>
 
-            <!-- Lien vers la page précédente -->
-            <li class="page-item <!-- Afficher " disabled" si c'est la première page -->">
-                <a class="page-link" href="?page=<!-- Numéro de page - 1 --><!-- Ajouter le paramètre de sélection si présent -->" tabindex="-1" aria-disabled="<!-- true si première page, sinon false -->">Précédent</a>
-            </li>
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?php if ($i == $page)
+                        echo 'active'; ?>">
+                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    </li>
+                <?php endfor; ?>
 
-            <!-- Liens pour chaque page -->
-            <!-- Boucle pour chaque page -->
-            <li class="page-item <!-- Afficher " active" si c'est la page courante -->">
-                <a class="page-link" href="?page=<!-- Numéro de page --><!-- Ajouter le paramètre de sélection si présent -->"><!-- Numéro de page --></a>
-            </li>
-            <!-- Fin de la boucle -->
+                <?php if ($page < $totalPages): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?php echo $page + 1; ?>">Suivant</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    <?php endif; ?>
 
-            <!-- Lien vers la page suivante -->
-            <li class="page-item <!-- Afficher " disabled" si c'est la dernière page -->">
-                <a class="page-link" href="?page=<!-- Numéro de page + 1 --><!-- Ajouter le paramètre de sélection si présent -->" aria-disabled="<!-- true si dernière page, sinon false -->">Suivant</a>
-            </li>
-
-        </ul>
-    </nav>
 
 </div>
 
