@@ -24,19 +24,44 @@ class UtilisateurController
    */
   public function inscrire_utilisateur()
   {
-    $prenom = Validation::valider_champs('nom', obtenirParametre('prenom'), ['requis' => true]);
+    $prenom = Validation::valider_champs('prénom', obtenirParametre('prenom'), ['requis' => true]);
     $nom = Validation::valider_champs('nom de famille', obtenirParametre('nom'), ['requis' => true]);
     $nom_utilisateur = Validation::valider_champs('nom d\'utilisateur', obtenirParametre('nom_utilisateur'), ['requis' => true]);
-    $courriel = Validation::valider_champs('email', obtenirParametre('email'), ['requis' => true]);
-    $mot_de_passe = Validation::valider_champs('password', obtenirParametre('mot_passe'), [
-      'requis' => true, 'majuscule' => true, 'chiffre' => true, 'special' => true, 'min' => 8
-    ]);
+
+    $valeur_courriel = obtenirParametre('email');
+    $courriel = Validation::valider_champs('email', $valeur_courriel, ['requis' => true]);
+
+    $valeur_mdp = obtenirParametre('mot_passe');
+    $regles_mdp = ['requis' => true, 'min' => 8, 'majuscule' => true, 'chiffre' => true, 'special' => true];
+    $erreurs = [];
+
+    foreach ($regles_mdp as $regle => $valeur) {
+      $resultat = Validation::valider_champs('mot de passe', $valeur_mdp, [$regle => $valeur]);
+      if ($resultat !== true) {
+        $erreurs[] = $resultat;
+      }
+    }
+
     $mot_de_passe_confirmer = obtenirParametre('confirmation_mot_passe');
 
-    if ($prenom && $nom && $nom_utilisateur && $courriel && $mot_de_passe) {
-      if ($mot_de_passe == $mot_de_passe_confirmer) {
-        $this->utilisateur->ajouter_Utilisateur($prenom, $nom, $nom_utilisateur, $courriel, $mot_de_passe);
-        $nouveau_utilisateur = $this->utilisateur->utilisateur_dans_BD($courriel);
+    if ($prenom === true && $nom === true && $nom_utilisateur === true && $courriel === true && empty($erreurs)) {
+      if ($valeur_mdp === $mot_de_passe_confirmer) {
+        $utilisateur_existant = $this->utilisateur->utilisateur_dans_BD($valeur_courriel);
+
+        if (!empty($utilisateur_existant)) {
+
+          Session::set_flash("Un compte avec ce courriel existe déjà.", "danger");
+          chargerVue("utilisateur/inscription", donnees: [
+            'prenom' => obtenirParametre('prenom'),
+            'nom' => obtenirParametre('nom'),
+            'email' => obtenirParametre('email'),
+            'nom_utilisateur' => obtenirParametre('nom_utilisateur')
+          ]);
+          return;
+        }
+        $this->utilisateur->ajouter_Utilisateur(obtenirParametre('prenom'), obtenirParametre('nom'), obtenirParametre('nom_utilisateur'), $valeur_courriel, $valeur_mdp);
+
+        $nouveau_utilisateur = $this->utilisateur->utilisateur_dans_BD($valeur_courriel);
 
         if ($nouveau_utilisateur) {
           Session::set('id_utilisateur', [
@@ -46,18 +71,28 @@ class UtilisateurController
             'nom' => $nouveau_utilisateur[0]['nom'],
             'prenom' => $nouveau_utilisateur[0]['prenom']
           ]);
-          Session::set_flash('Utilisateur crée avec success', 'success');
+          Session::set_flash('Utilisateur créé avec succès.', 'success');
           redirect('/MesAnnonces');
         }
       } else {
-        chargerVue("utilisateur/inscription", donnees: [
-          'erreur' => 'Les mots de passe ne correspondent pas',
-          'prenom' => $prenom,
-          'nom' => $nom,
-          'email' => $courriel,
-          'nom_utilisateur' => $nom_utilisateur
-        ]);
+        $erreurs[] = 'Les mots de passe ne correspondent pas.';
       }
+    } else {
+      foreach (['prenom' => $prenom, 'nom' => $nom, 'nom_utilisateur' => $nom_utilisateur, 'courriel' => $courriel] as $champ => $valeur) {
+        if ($valeur !== true) {
+          $erreurs[] = $valeur;
+        }
+      }
+    }
+
+    if (!empty($erreurs)) {
+      Session::set_flash(implode('<br>', $erreurs), 'danger');
+      chargerVue("utilisateur/inscription", donnees: [
+        'prenom' => obtenirParametre('prenom'),
+        'nom' => obtenirParametre('nom'),
+        'email' => obtenirParametre('email'),
+        'nom_utilisateur' => obtenirParametre('nom_utilisateur')
+      ]);
     }
   }
 
@@ -81,7 +116,7 @@ class UtilisateurController
     }
 
     // Validate fields
-    $Verification_email = Validation::valider_email( $champ_email);
+    $Verification_email = Validation::valider_email($champ_email);
     $Verification_password = Validation::valider_champs('mot de passe', $champ_password, [
       'requis' => true
     ]);
@@ -123,7 +158,7 @@ class UtilisateurController
     if (Session::est_connecte()) {
       Session::detruire();
       Session::demarrer();
-      Session::set_flash('Déconmexion réussi', 'success'); 
+      Session::set_flash('Déconmexion réussi', 'success');
       redirect("/");
     } else {
       redirect("/");

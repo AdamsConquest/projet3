@@ -43,7 +43,7 @@ class Validation
           break;
         case 'special':
           if ($valeur && !preg_match('/[\W_]/', $val_champs)) {
-            return "Le {$val_champs} doit contenir au moins un caractère spécial.";
+            return "Le {$nom_champs} doit contenir au moins un caractère spécial.";
           }
           break;
         default:

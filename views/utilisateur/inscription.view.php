@@ -14,8 +14,7 @@ chargerVuePartielle('_nav');
     </div>
 
     <!-- À inclure : message d'erreurs -->
-    <?php Session::afficher_flash() ?>
-
+<?= Session::afficher_flash() ?>
     <form class="register-form" method="POST" action="/inscription_User">
       <div class="row mb-3">
         <div class="col-md-6 mb-3 mb-md-0">

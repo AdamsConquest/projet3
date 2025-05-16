@@ -178,7 +178,7 @@ class Session
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>',
         htmlspecialchars($flash['type']),
-        htmlspecialchars($flash['message'])
+        $flash['message']
       );
     }
     return null;

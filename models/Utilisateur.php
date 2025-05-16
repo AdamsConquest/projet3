@@ -50,12 +50,14 @@ class Utilisateur
    * @param string $email Email à vérifier
    * @return array Résultat contenant l'utilisateur s'il existe
    */
-  function utilisateur_dans_BD($email)
+  public function utilisateur_dans_BD($email)
   {
-    $sql = "SELECT * FROM utilisateurs WHERE email = :email";
-    $params = [":email" => $email];
+    $sql = "SELECT * FROM utilisateurs WHERE email = ?";
+    $params = [1 => $email];
     return $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+
   }
+
 
   /**
    * Récupère les informations d’un utilisateur par son ID.
