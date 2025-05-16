@@ -7,6 +7,10 @@ Plateforme de gestion de petites annonces – Projet final du cours 420-W46-GG
 * Zachary Bellerose
 * Adam Ali
 
+## URL du repository 
+
+https://github.com/AdamsConquest/projet3.git
+
 ## Technologies utilisées
 
 * **PHP 7.4+** : Traitement serveur
@@ -33,7 +37,7 @@ Plateforme de gestion de petites annonces – Projet final du cours 420-W46-GG
 
 3. **Lancer le projet** :
 
-   * Ouvrir [http://popbazar.local](http://popbazar.local) dans le navigateur
+   * Ouvrir [http://popbazar.local] dans le navigateur
 
 ## Fonctionnalités principales
 
