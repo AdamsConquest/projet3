@@ -25,21 +25,36 @@ class AnnonceController
       return;
     }
 
-    $utilisateur_id = Session::obtenir_id_utilisateur();
-    $annonces = $this->annonce->get_annonces_par_utilisateur($utilisateur_id);
+$page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
+    $_SESSION['page'] = $page;
 
-    chargerVue("annonces/index", donnees: [
-      "annonces" => $annonces
+    $parPage = 9;
+    $offset = ($page - 1) * $parPage;
+
+    $utilisateur_id = Session::obtenir_id_utilisateur();
+
+    $stmt = $this->annonce->get_annonces_par_utilisateur_paginee($utilisateur_id, $parPage, $offset);
+    $annonces = $stmt->fetchAll();
+
+    $total = $this->annonce->count_annonces_utilisateur($utilisateur_id);
+    $totalPages = ceil($total / $parPage);
+
+    chargerVue("annonces/index", [
+      "annonces" => $annonces,
+      "page" => $page,
+      "totalPages" => $totalPages
     ]);
   }
 
+
+
   public function ajouterUneAnnonce()
   {
-    $catergoire =  Validation::valider_champs('name', obtenirParametre('categorie'), ['requis' => true]);
+    $catergoire = Validation::valider_champs('name', obtenirParametre('categorie'), ['requis' => true]);
     $titre = Validation::valider_champs('name', obtenirParametre('titre'), ['requis' => true]);
     $description = Validation::valider_champs('name', obtenirParametre('description'), ['requis' => true]);
     $prix = Validation::valider_champs('name', obtenirParametre('prix'), ['requis' => true]);
-    $etat =  Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
+    $etat = Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
 
     if ($catergoire && $titre && $description && $prix && $etat) {
       $this->annonce->ajouter_annnonce(obtenir_id_categorie(obtenirParametre('categorie')), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('etat'));
@@ -97,5 +112,5 @@ class AnnonceController
     ]);
   }
 
-  public function supprimer_une_annonce($params) {}
+
 }

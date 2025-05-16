@@ -3,8 +3,6 @@
 <?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
-
-
 ?>
 
 <!-- Main Content -->
@@ -84,14 +82,11 @@ chargerVuePartielle('_nav');
                                             <button class="dropdown-item text-danger" type="submit"><i
                                                     class="fas fa-check-circle me-2"></i>Marquer comme vendu</button>
                                         </form>
-
-
                                     </li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-
                                         <form method="POST" action="/annonces/<?php echo $annonce['id'] ?>/supprimer">
                                             <button class="dropdown-item text-danger" type="submit"><i
                                                     class="fas fa-trash-alt me-2"></i>Supprimer</button>
@@ -132,33 +127,41 @@ chargerVuePartielle('_nav');
     </div>
 
     <!-- Pagination -->
-    <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
+    <?php if (isset($totalPages) && $totalPages >= 1): ?>
+        <?php
+        if (isset($idCategorie)) {
+            // Annonces par catégorie
+            $baseUrl = "/categories/" . $idCategorie . "/annonces?page=";
+        } else {
+            // Mes annonces
+            $baseUrl = "/MesAnnonces?page=";
+        }
+        ?>
 
-            <!-- Précédent -->
-            <li class="page-item <?php if ($page <= 1)
-                echo 'disabled'; ?>">
-                <a class="page-link" href="?page=<?php echo $page - 1; ?>&id=<?php echo $idCategorie; ?>" tabindex="-1"
-                    aria-disabled="<?php echo ($page <= 1) ? 'true' : 'false'; ?>">Précédent</a>
-            </li>
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
 
-            <!-- Numéros de page -->
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <li class="page-item <?php if ($i == $page)
-                    echo 'active'; ?>">
-                    <a class="page-link" href="?page=<?php echo $i; ?>&id=<?php echo $idCategorie; ?>"><?php echo $i; ?></a>
+                <!-- Précédent -->
+                <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                    <a class="page-link" href="<?= $baseUrl . ($page - 1) ?>">Précédent</a>
                 </li>
-            <?php endfor; ?>
 
-            <!-- Suivant -->
-            <li class="page-item <?php if ($page >= $totalPages)
-                echo 'disabled'; ?>">
-                <a class="page-link" href="?page=<?php echo $page + 1; ?>&id=<?php echo $idCategorie; ?>"
-                    aria-disabled="<?php echo ($page >= $totalPages) ? 'true' : 'false'; ?>">Suivant</a>
-            </li>
+                <!-- Numéros -->
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                        <a class="page-link" href="<?= $baseUrl . $i ?>"><?= $i ?></a>
+                    </li>
+                <?php endfor; ?>
 
-        </ul>
-    </nav>
+                <!-- Suivant -->
+                <li class="page-item <?= $page >= $totalPages ? 'disabled' : '' ?>">
+                    <a class="page-link" href="<?= $baseUrl . ($page + 1) ?>">Suivant</a>
+                </li>
+
+            </ul>
+        </nav>
+
+    <?php endif; ?>
 
 
 
