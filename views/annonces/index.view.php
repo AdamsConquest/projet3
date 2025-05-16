@@ -48,18 +48,9 @@ chargerVuePartielle('_nav');
             <li class="nav-item">
                 <a class="nav-link <!-- Afficher ' active' si la sélection est 'vendues' -->" href="/annonces?selection=vendues">Vendues (<?php echo isset($annonces) ? obtenir_nbr_annonces($annonces)[2] : 0 ?>)</a>
 
-                <a class="nav-link <!-- Afficher ' active' si aucune sélection n'est faite -->" href="/annonces">Toutes
-                    (<?php echo obtenir_nbr_annonces($annonces)[0] ?>)</a>
+                
             </li>
-            <li class="nav-item">
-                <a class="nav-link <!-- Afficher ' active' si la sélection est 'actives' -->"
-                    href="/annonces?selection=actives">Actives (<?php echo obtenir_nbr_annonces($annonces)[1] ?>)</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <!-- Afficher ' active' si la sélection est 'vendues' -->"
-                    href="/annonces?selection=vendues">Vendues (<?php echo obtenir_nbr_annonces($annonces)[2] ?>)</a>
-
-            </li>
+            
         </ul>
 
         <a href="/ajouter_annonce" class="btn btn-primary">

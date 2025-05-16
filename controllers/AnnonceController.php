@@ -67,9 +67,21 @@ $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
   {
 
     $donnees = $this->annonce->get_annonce($params['id']);
-    chargerVue("annonces/afficher", donnees: [
-      "annonce" => $donnees[0]
-    ]);
+
+    if (Session::est_connecte()) {
+      if ($donnees[0]['utilisateur_id'] === Session::obtenir_id_utilisateur()) {
+        chargerVue("annonces/modifier", donnees: [
+          "titre" => "Annonce",
+          "annonce" => $donnees[0],
+        ]);
+      } else {
+        Session::set_flash('Vous n\'êtes pas autorisé à modifier cette annonce.', 'danger');
+        redirect('/MesAnnonces');
+      }
+    } else {
+      Session::set_flash('Vous devez être connecté pour modifier une annonce', 'danger');
+      redirect('/connexion_user');
+    }   
   }
 
   public function afficher_modification($params)
