@@ -61,7 +61,7 @@ class AnnonceController
     $etat = Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
 
     if ($categorie && $titre && $description && $prix && $etat) {
-      $this->annonce->ajouter_annnonce(obtenir_id_categorie($categorie), $titre, $description, $prix, $etat);
+      $this->annonce->ajouter_annnonce(obtenir_id_categorie(obtenirParametre('categorie')), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('etat'));
       Session::set_flash('Annonce ajoutée avec succès.', 'success');
     }
     redirect('/MesAnnonces');
@@ -152,6 +152,7 @@ class AnnonceController
     if ($annonce[0]['utilisateur_id'] == $utilisateur_id) {
       $this->annonce->supprimer_annonce($params['id']);
       Session::set_flash('Annonce supprimée avec succès.', 'success');
+      redirect('/MesAnnonces');
     } else {
       Session::set_flash('Vous n\'êtes pas autorisé à supprimer cette annonce.', 'error');
       redirect('/MesAnnonces');

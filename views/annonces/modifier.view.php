@@ -125,7 +125,7 @@ chargerVuePartielle('_nav');
           </button>
         </div>
         <div>
-          <a href="/annonces" class="btn btn-outline-secondary me-2">
+          <a href="/MesAnnonces" class="btn btn-outline-secondary me-2">
             <i class="fas fa-times me-2"></i>Annuler
           </a>
           <button type="submit" class="btn btn-primary">
