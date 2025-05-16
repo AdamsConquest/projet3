@@ -164,7 +164,7 @@ class Session
   /**
    * Affiche le message flash s'il existe et le supprime
    * 
-   * @return string|null HTML du message flash ou null si pas de message
+   * @return string ou @return null HTML du message flash ou null si pas de message
    */
   public static function afficher_flash()
   {

@@ -1,5 +1,5 @@
 <!-- À inclure : entête et navigation -->
- <?php
+<?php
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
 ?>
@@ -14,6 +14,7 @@ chargerVuePartielle('_nav');
     </div>
 
     <!-- À inclure : message d'erreurs -->
+    <?php Session::afficher_flash() ?>
 
     <form class="register-form" method="POST" action="/inscription_User">
       <div class="row mb-3">
@@ -81,6 +82,6 @@ chargerVuePartielle('_nav');
 </div>
 
 <!-- À inclure : pied de page -->
- <?php
+<?php
 chargerVuePartielle('_pied_page');
 ?>

@@ -46,6 +46,7 @@ class UtilisateurController
             'nom' => $nouveau_utilisateur[0]['nom'],
             'prenom' => $nouveau_utilisateur[0]['prenom']
           ]);
+          Session::set_flash('Utilisateur crée avec success', 'success');
           redirect('/MesAnnonces');
         }
       } else {
