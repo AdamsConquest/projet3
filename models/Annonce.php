@@ -76,6 +76,25 @@ class Annonce
 }
 
 
+
+public function get_annonces_par_utilisateur_paginee($idUtilisateur, $limite, $offset)
+{
+    $sql = "SELECT * FROM produits WHERE utilisateur_id = ? LIMIT ? OFFSET ?";
+    return $this->bd->requete($sql, [1 => $idUtilisateur, 2 => $limite, 3 => $offset]);
+}
+
+public function count_annonces_utilisateur($idUtilisateur)
+{
+    $sql = "SELECT COUNT(*) as total FROM produits WHERE utilisateur_id = ?";
+    $stmt = $this->bd->requete($sql, [1 => $idUtilisateur]);
+    $row = $stmt->fetch();
+    return (int)$row['total'];
+}
+
+
+
+
+
 }
 
 

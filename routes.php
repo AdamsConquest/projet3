@@ -37,7 +37,6 @@ $routeur->get("/annonces/{id}", "AnnonceController@afficher_par_annonce");
 $routeur->get("/connexion_user", "AccueilController@afficherPageConnexion");
 $routeur->get("/inscription", "AccueilController@afficherPageInscription");
 
-//$routeur->get("/deconnexion_user", "UtilisateurController@deconnexion_utilisteur");
 $routeur->post("/deconnexion_user", "UtilisateurController@deconnexion_utilisteur");
 
 
