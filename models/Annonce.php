@@ -56,10 +56,10 @@ class Annonce
 
 
 
-  public function modifier_annonce($id, $titre, $description, $prix, $active, $etat)
+  public function modifier_annonce($id, $titre, $description, $prix, $active, $etat, $categorie)
   {
-    $sql = "UPDATE produits SET titre = ?, description = ?, prix = ?, est_actif = ?, etat = ? WHERE id = ?";
-    $stmt = $this->bd->requete($sql, params: ["1" => $titre, "2" => $description, "3" => $prix, "4" => $active, "5" => $etat, "6" => $id]);
+    $sql = "UPDATE produits SET titre = ?, description = ?, prix = ?, est_actif = ?, etat = ?, categorie_id = ? WHERE id = ?";
+    $stmt = $this->bd->requete($sql, params: ["1" => $titre, "2" => $description, "3" => $prix, "4" => $active, "5" => $etat, "6" => obtenir_id_categorie($categorie) , "7" => $id]);
   }
 
   public function supprimer_annonce($id)

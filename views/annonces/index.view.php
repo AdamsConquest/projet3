@@ -92,7 +92,7 @@ chargerVuePartielle('_nav');
                                     <?php if ($_SERVER['REQUEST_URI'] === '/MesAnnonces') { ?>
                                         <li>
 
-                                            <!-- Formulaire pour marquer comme vendu -->
+                                            <!-- Formulaire pour    uer comme vendu -->
                                             <form id="form-vendue" method="POST" action="/annonces/<?php echo $annonce['id'] ?>/est_vendu">
                                                 <input type="hidden" name="est_vendu" value="1">
                                                 <button class="dropdown-item text-danger" type="submit"><i class="fas fa-check-circle me-2"></i>Marquer comme vendu</button>
@@ -117,28 +117,6 @@ chargerVuePartielle('_nav');
                                             </button>
                                         </li>
                                     <?php } ?>
-
-                                    <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>"><i
-                                                class="fas fa-eye me-2"></i>Voir</a></li>
-                                    <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>/modifier"><i
-                                                class="fas fa-edit me-2"></i>Modifier</a></li>
-                                    <li>
-                                        <!-- Formulaire pour marquer comme vendu -->
-                                        <form id="form-vendue" method="POST"
-                                            action="/annonces/<?php echo $annonce['id'] ?>/est_vendu">
-                                            <input type="hidden" name="est_vendu" value="1">
-                                            <button class="dropdown-item text-danger" type="submit"><i
-                                                    class="fas fa-check-circle me-2"></i>Marquer comme vendu</button>
-                                        </form>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <form method="POST" action="/annonces/<?php echo $annonce['id'] ?>/supprimer">
-                                            <button class="dropdown-item text-danger" type="submit"><i
-                                                    class="fas fa-trash-alt me-2"></i>Supprimer</button>
-                                        </form>
 
                                 </ul>
                             </div>
@@ -172,7 +150,7 @@ chargerVuePartielle('_nav');
                 </div>
 
                 <form id="form-supprimer" method="POST" action="/annonces/<?php echo $annonce['id'] ?>/supprimer" style="display:none;"></form>
-\
+
             <?php } ?>
         <?php } ?>
         <!-- Fin de la boucle -->

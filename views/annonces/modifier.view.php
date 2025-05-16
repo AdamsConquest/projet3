@@ -4,7 +4,7 @@
 chargerVuePartielle('_entete');
 chargerVuePartielle('_nav');
 ?>
-
+ <?php echo Session::afficher_flash() ?>
 <!-- Main Content -->
 <div class="container mt-4">
   <nav aria-label="breadcrumb">
@@ -28,11 +28,39 @@ chargerVuePartielle('_nav');
         </h3>
         <p class="text-muted mb-3">Sélectionnez la catégorie qui correspond le mieux à votre produit</p>
 
+        
+
         <input type="hidden" id="categorie" name="categorie" value="<?php echo obtenir_nom_categorie($annonce['categorie_id']) ?>">
 
         <div class="row g-3">
-          <!-- Cartes de catégorie -->
-          <!-- Même structure conservée -->
+          <div class="col-md-3">
+            <div class="category-card selected" onclick="selectCategory(this)">
+              <i class="fas fa-gamepad"></i>
+              <h5>Jeux vidéo</h5>
+              <p class="mb-0 small text-muted">Consoles, jeux, accessoires</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="category-card" onclick="selectCategory(this)">
+              <i class="fas fa-mask"></i>
+              <h5>Super-héros</h5>
+              <p class="mb-0 small text-muted">Figurines, comics, costumes</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="category-card" onclick="selectCategory(this)">
+              <i class="fas fa-film"></i>
+              <h5>Films cultes</h5>
+              <p class="mb-0 small text-muted">DVDs, affiches, objets</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="category-card" onclick="selectCategory(this)">
+              <i class="fas fa-tv"></i>
+              <h5>Séries TV</h5>
+              <p class="mb-0 small text-muted">Coffrets, produits dérivés</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -68,7 +96,11 @@ chargerVuePartielle('_nav');
             <label class="form-label">État du produit <span class="text-danger">*</span></label>
             <input type="hidden" id="etat" name="etat" value="<?php echo $annonce['etat'] ?>">
             <div>
-              <!-- Boutons d’état -->
+              <button type="button" class="condition-btn selected" onclick="selectCondition(this)">Neuf</button>
+              <button type="button" class="condition-btn" onclick="selectCondition(this)">Comme neuf</button>
+              <button type="button" class="condition-btn" onclick="selectCondition(this)">Très bon état</button>
+              <button type="button" class="condition-btn" onclick="selectCondition(this)">Bon état</button>
+              <button type="button" class="condition-btn" onclick="selectCondition(this)">État moyen</button>
             </div>
           </div>
         </div>

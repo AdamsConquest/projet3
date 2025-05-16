@@ -89,10 +89,7 @@ class UtilisateurController
     }
 
     // Validate fields
-    $Verification_email = Validation::valider_champs('email', $champ_email, [
-      'requis' => true,
-      'email' => true
-    ]);
+    $Verification_email = Validation::valider_email( $champ_email);
     $Verification_password = Validation::valider_champs('mot de passe', $champ_password, [
       'requis' => true
     ]);
@@ -132,7 +129,7 @@ class UtilisateurController
     if (Session::est_connecte()) {
       Session::detruire();
       Session::demarrer();
-      Session::set_flash('Déconmexion réussi', 'danger'); 
+      Session::set_flash('Déconmexion réussi', 'success'); 
       redirect("/");
     } else {
       redirect("/");

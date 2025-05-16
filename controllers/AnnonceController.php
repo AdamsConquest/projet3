@@ -25,7 +25,7 @@ class AnnonceController
       return;
     }
 
-$page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
+    $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
     $_SESSION['page'] = $page;
 
     $parPage = 9;
@@ -65,29 +65,16 @@ $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
 
   public function afficher_par_annonce($params)
   {
-
     $donnees = $this->annonce->get_annonce($params['id']);
-
-    if (Session::est_connecte()) {
-      if ($donnees[0]['utilisateur_id'] === Session::obtenir_id_utilisateur()) {
-        chargerVue("annonces/modifier", donnees: [
-          "titre" => "Annonce",
-          "annonce" => $donnees[0],
-        ]);
-      } else {
-        Session::set_flash('Vous n\'êtes pas autorisé à modifier cette annonce.', 'danger');
-        redirect('/MesAnnonces');
-      }
-    } else {
-      Session::set_flash('Vous devez être connecté pour modifier une annonce', 'danger');
-      redirect('/connexion_user');
-    }   
+    chargerVue("annonces/afficher", donnees: [
+      "titre" => "Annonce",
+      "annonce" => $donnees[0],
+    ]);
   }
 
   public function afficher_modification($params)
   {
     $donnees = $this->annonce->get_annonce($params['id']);
-
     if (Session::est_connecte()) {
       if ($donnees[0]['utilisateur_id'] === Session::obtenir_id_utilisateur()) {
         chargerVue("annonces/modifier", donnees: [
@@ -107,21 +94,35 @@ $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
   public function modifier_une_annonce($params)
   {
 
-    $categorie = obtenir_id_categorie(obtenirParametre('categorie'));
-    $titre = Validation::valider_champs('name', obtenirParametre('titre'), ['requis' => true]);
-    $description = Validation::valider_champs('name', obtenirParametre('description'), ['requis' => true]);
-    $prix = Validation::valider_champs('name', obtenirParametre('prix'), ['requis' => true]);
-    $active = Validation::valider_champs('name', obtenirParametre('est_actif') ? 1 : 0, ['requis' => true]);
-    $etat = Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
+
+    $categorie = Validation::valider_champs('catégorie', obtenirParametre('categorie'), ['requis' => true]);
+    $titre = Validation::valider_champs('titre', obtenirParametre('titre'), ['requis' => true, 'max' => 70]);
+    $description = Validation::valider_champs('description', obtenirParametre('description'), ['requis' => true, 'min' => 30]);
+    $prix = Validation::valider_champs('prix', obtenirParametre('prix'), ['requis' => true]);
+    $etat = Validation::valider_champs('état', obtenirParametre('etat'), ['requis' => true]);
 
 
-    if ($categorie && $titre && $description && $prix && $active && $etat) {
-      $this->annonce->modifier_annonce($params['id'], obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('est_actif') ? 1 : 0, obtenirParametre('etat'));
-      $donnees = $this->annonce->get_annonce($params['id']);
-      chargerVue("annonces/afficher", donnees: [
-        "titre" => "Annonce",
-        "annonce" => $donnees[0],
-      ]);
+    // Check for validation errors
+    if (is_string($titre)) {
+      Session::set_flash('Le titre est invalide (70 caractères maximum)', 'warning');
+      redirect("/annonces/{$params['id']}/modifier");
+      return;
+    }
+    if (is_string($description)) {
+      Session::set_flash('La description est invalide (30 caractères maximum)', 'warning');
+      redirect("/annonces/{$params['id']}/modifier");
+      return;
+    }
+
+
+
+    if ($titre && $description) {
+
+      $this->annonce->modifier_annonce($params['id'], obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('est_actif') ? 1 : 0, obtenirParametre('etat'), obtenirParametre('categorie'));
+      //$this->annonce->get_annonce($params['id']);
+
+      Session::set_flash('Annonce modifiée avec succès', 'success');
+      redirect('/MesAnnonces');
     }
   }
 
@@ -129,10 +130,7 @@ $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
   {
     $this->annonce->set_vendu_status($params['id']);
     $donnees = $this->annonce->get_annonce($params['id']);
-    chargerVue("annonces/afficher", donnees: [
-      "titre" => "Annonce",
-      "annonce" => $donnees[0],
-    ]);
+    redirect('/MesAnnonces');
   }
 
 
@@ -156,5 +154,4 @@ $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
       redirect('/MesAnnonces');
     }
   }
-
 }

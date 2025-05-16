@@ -19,7 +19,7 @@ class AccueilController
   public function ajouterAnnonce()
   {
     if (Session::est_connecte()) {
-     redirect("annonces/ajouter");
+     chargerVue("annonces/ajouter");
     } else {
       Session::set_flash('Vous devez être connecté pour créer une annonce', 'danger');
       redirect("/connexion_user");
