@@ -61,7 +61,7 @@ class Session
   {
     if ($role === "autorise" && !self::est_connecte()) {
       return redirect("/connexion");
-    } 
+    }
   }
 
   /**
@@ -159,5 +159,28 @@ class Session
       'message' => $message,
       'type' => $type
     ];
+  }
+  
+  /**
+   * Affiche le message flash s'il existe et le supprime
+   * 
+   * @return string|null HTML du message flash ou null si pas de message
+   */
+  public static function afficher_flash()
+  {
+    if (isset($_SESSION['flash'])) {
+      $flash = $_SESSION['flash'];
+      unset($_SESSION['flash']);
+
+      return sprintf(
+        '<div class="alert alert-%s alert-dismissible fade show" role="alert">
+                %s
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>',
+        htmlspecialchars($flash['type']),
+        htmlspecialchars($flash['message'])
+      );
+    }
+    return null;
   }
 }

@@ -79,11 +79,12 @@ class UtilisateurController
     // Check if the user exists first
     $user = $this->utilisateur->utilisateur_dans_BD($champ_email);
 
-
     // Add null check for user
     if (!$user || empty($user)) {
+      Session::set_flash('Utilisateur n\'existe pas', 'danger');
       // User not found
-      chargerVue("utilisateur/connexion", donnees: ['erreur' => 'Email ou mot de passe invalide']);
+      redirect("/connexion_user");
+
       return;
     }
 
@@ -115,11 +116,13 @@ class UtilisateurController
         $utilisateur_id = Session::obtenir_id_utilisateur();
         $annonces = $annonce->get_annonces_par_utilisateur($utilisateur_id);
 
+        Session::set_flash('Connexion réussie!', 'success');
         chargerVue("annonces/index", donnees: [
           "annonces" => $annonces
         ]);
       } else {
-        chargerVue("utilisateur/connexion", donnees: ['erreur' => 'Email ou mot de passe invalide']);
+        Session::set_flash('Email ou mot de passe invalide', 'danger');
+        redirect('/connexion_user');
       }
     }
   }
@@ -129,6 +132,7 @@ class UtilisateurController
     if (Session::est_connecte()) {
       Session::detruire();
       Session::demarrer();
+      Session::set_flash('Déconmexion réussi', 'danger'); 
       redirect("/");
     } else {
       redirect("/");

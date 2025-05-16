@@ -65,8 +65,7 @@ class Annonce
   public function supprimer_annonce($id)
   {
     $sql = "DELETE FROM produits WHERE id = ?";
-    $stmt = $this->bd->requete($sql, [$id]);
-
+    $this->bd->requete($sql, params: ["1" => $id]);
   }
 
   public function set_vendu_status($id) {

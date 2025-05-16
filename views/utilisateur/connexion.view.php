@@ -14,7 +14,7 @@ chargerVuePartielle('_nav');
     </div>
 
     <!-- À inclure : message d'erreurs -->
-     
+    <?php echo Session::afficher_flash() ?>
 
     <form class="login-form" method="POST" action="/connexion_user">
       <div class="mb-3">
