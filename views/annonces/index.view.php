@@ -131,36 +131,35 @@ chargerVuePartielle('_nav');
         <!-- Fin de la boucle -->
     </div>
 
-
-
-
-
-
     <!-- Pagination -->
-    <?php if (isset($totalPages) && $totalPages > 1): ?>
-        <nav>
-            <ul class="pagination justify-content-center">
-                <?php if ($page > 1): ?>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?php echo $page - 1; ?>">Précédent</a>
-                    </li>
-                <?php endif; ?>
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
 
-                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                    <li class="page-item <?php if ($i == $page)
-                        echo 'active'; ?>">
-                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                    </li>
-                <?php endfor; ?>
+            <!-- Précédent -->
+            <li class="page-item <?php if ($page <= 1)
+                echo 'disabled'; ?>">
+                <a class="page-link" href="?page=<?php echo $page - 1; ?>&id=<?php echo $idCategorie; ?>" tabindex="-1"
+                    aria-disabled="<?php echo ($page <= 1) ? 'true' : 'false'; ?>">Précédent</a>
+            </li>
 
-                <?php if ($page < $totalPages): ?>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?php echo $page + 1; ?>">Suivant</a>
-                    </li>
-                <?php endif; ?>
-            </ul>
-        </nav>
-    <?php endif; ?>
+            <!-- Numéros de page -->
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="page-item <?php if ($i == $page)
+                    echo 'active'; ?>">
+                    <a class="page-link" href="?page=<?php echo $i; ?>&id=<?php echo $idCategorie; ?>"><?php echo $i; ?></a>
+                </li>
+            <?php endfor; ?>
+
+            <!-- Suivant -->
+            <li class="page-item <?php if ($page >= $totalPages)
+                echo 'disabled'; ?>">
+                <a class="page-link" href="?page=<?php echo $page + 1; ?>&id=<?php echo $idCategorie; ?>"
+                    aria-disabled="<?php echo ($page >= $totalPages) ? 'true' : 'false'; ?>">Suivant</a>
+            </li>
+
+        </ul>
+    </nav>
+
 
 
 </div>
