@@ -58,6 +58,7 @@ $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
 
     if ($catergoire && $titre && $description && $prix && $etat) {
       $this->annonce->ajouter_annnonce(obtenir_id_categorie(obtenirParametre('categorie')), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('etat'));
+      Session::set_flash('Annonce ajouté avec succès.', 'success');
     }
     redirect('/MesAnnonces');
   }
@@ -73,12 +74,22 @@ $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
 
   public function afficher_modification($params)
   {
-
     $donnees = $this->annonce->get_annonce($params['id']);
-    chargerVue("annonces/modifier", donnees: [
-      "titre" => "Annonce",
-      "annonce" => $donnees[0],
-    ]);
+
+    if (Session::est_connecte()) {
+      if ($donnees[0]['utilisateur_id'] === Session::obtenir_id_utilisateur()) {
+        chargerVue("annonces/modifier", donnees: [
+          "titre" => "Annonce",
+          "annonce" => $donnees[0],
+        ]);
+      } else {
+        Session::set_flash('Vous n\'êtes pas autorisé à modifier cette annonce.', 'danger');
+        redirect('/MesAnnonces');
+      }
+    } else {
+      Session::set_flash('Vous devez être connecté pour modifier une annonce', 'danger');
+      redirect('/connexion_user');
+    }
   }
 
   public function modifier_une_annonce($params)
@@ -112,5 +123,26 @@ $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
     ]);
   }
 
+
+  public function supprimer_une_annonce($params)
+  {
+
+    // Récupérer l'ID de l'utilisateur connecté
+    $utilisateur_id = Session::obtenir_id_utilisateur();
+
+    // Vérifier si l'annonce appartient à l'utilisateur connecté
+    $annonce = $this->annonce->get_annonce($params['id']);
+
+    if ($annonce[0]['utilisateur_id'] == $utilisateur_id) {
+      // Supprimer l'annonce
+      $this->annonce->supprimer_annonce($params['id']);
+      // Ajouter un message flash de succès
+      Session::set_flash('Annonce supprimée avec succès.', 'success');
+      redirect('/MesAnnonces');
+    } else {
+      Session::set_flash('Vous n\'êtes pas autorisé à supprimer cette annonce.', 'error');
+      redirect('/MesAnnonces');
+    }
+  }
 
 }

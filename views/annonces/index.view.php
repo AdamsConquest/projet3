@@ -7,6 +7,7 @@ chargerVuePartielle('_nav');
 
 <!-- Main Content -->
 <div class="container mt-4">
+    <?php echo Session::afficher_flash() ?>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Accueil</a></li>
@@ -38,6 +39,15 @@ chargerVuePartielle('_nav');
         <ul class="nav nav-pills tab-pills">
             <li class="nav-item">
 
+
+                <a class="nav-link <!-- Afficher ' active' si aucune sélection n'est faite -->" href="/annonces">Toutes (<?php echo isset($annonces) ? obtenir_nbr_annonces($annonces)[0] : 0 ?>)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <!-- Afficher ' active' si la sélection est 'actives' -->" href="/annonces?selection=actives">Actives (<?php echo isset($annonces) ? obtenir_nbr_annonces($annonces)[1] : 0 ?>)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <!-- Afficher ' active' si la sélection est 'vendues' -->" href="/annonces?selection=vendues">Vendues (<?php echo isset($annonces) ? obtenir_nbr_annonces($annonces)[2] : 0 ?>)</a>
+
                 <a class="nav-link <!-- Afficher ' active' si aucune sélection n'est faite -->" href="/annonces">Toutes
                     (<?php echo obtenir_nbr_annonces($annonces)[0] ?>)</a>
             </li>
@@ -48,6 +58,7 @@ chargerVuePartielle('_nav');
             <li class="nav-item">
                 <a class="nav-link <!-- Afficher ' active' si la sélection est 'vendues' -->"
                     href="/annonces?selection=vendues">Vendues (<?php echo obtenir_nbr_annonces($annonces)[2] ?>)</a>
+
             </li>
         </ul>
 
@@ -84,6 +95,38 @@ chargerVuePartielle('_nav');
                                     <i class="fas fa-ellipsis-v"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
+
+                                    <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>"><i class="fas fa-eye me-2"></i>Voir</a></li>
+                                    <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>/modifier"><i class="fas fa-edit me-2"></i>Modifier</a></li>
+                                    <?php if ($_SERVER['REQUEST_URI'] === '/MesAnnonces') { ?>
+                                        <li>
+
+                                            <!-- Formulaire pour marquer comme vendu -->
+                                            <form id="form-vendue" method="POST" action="/annonces/<?php echo $annonce['id'] ?>/est_vendu">
+                                                <input type="hidden" name="est_vendu" value="1">
+                                                <button class="dropdown-item text-danger" type="submit"><i class="fas fa-check-circle me-2"></i>Marquer comme vendu</button>
+                                            </form>
+
+
+                                        </li>
+                                    <?php } ?>
+
+
+                                    <?php if ($_SERVER['REQUEST_URI'] === '/MesAnnonces') { ?>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item text-danger" type="button"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal"
+                                                data-id="<?php echo $annonce['id']; ?>"
+                                                data-titre="<?php echo htmlspecialchars($annonce['titre']); ?>">
+                                                <i class="fas fa-trash-alt me-2"></i>Supprimer
+                                            </button>
+                                        </li>
+                                    <?php } ?>
+
                                     <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>"><i
                                                 class="fas fa-eye me-2"></i>Voir</a></li>
                                     <li><a class="dropdown-item" href="/annonces/<?php echo $annonce['id'] ?>/modifier"><i
@@ -105,6 +148,7 @@ chargerVuePartielle('_nav');
                                             <button class="dropdown-item text-danger" type="submit"><i
                                                     class="fas fa-trash-alt me-2"></i>Supprimer</button>
                                         </form>
+
                                 </ul>
                             </div>
                         </div>
@@ -135,6 +179,9 @@ chargerVuePartielle('_nav');
                         </div>
                     </div>
                 </div>
+
+                <form id="form-supprimer" method="POST" action="/annonces/<?php echo $annonce['id'] ?>/supprimer" style="display:none;"></form>
+\
             <?php } ?>
         <?php } ?>
         <!-- Fin de la boucle -->
@@ -179,6 +226,26 @@ chargerVuePartielle('_nav');
 
 
 
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir supprimer cette annonce ? Cette action est irréversible.</p>
+                    <p class="fw-bold"><?php echo $annonce['titre'] ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" onclick="document.getElementById('form-supprimer').submit()">Confirmer la suppression</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -189,6 +256,26 @@ chargerVuePartielle('_nav');
         });
         element.classList.add('active');
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteModal = document.getElementById('deleteModal');
+        if (deleteModal) {
+            deleteModal.addEventListener('show.bs.modal', function(event) {
+
+                const button = event.relatedTarget;
+
+
+                const annonceId = button.getAttribute('data-id');
+                const annonceTitre = button.getAttribute('data-titre');
+
+                const modalTitle = deleteModal.querySelector('#modalAnnonceTitle');
+                const deleteForm = deleteModal.querySelector('#deleteForm');
+
+                modalTitle.textContent = annonceTitre;
+                deleteForm.action = `/annonces/${annonceId}/supprimer`;
+            });
+        }
+    });
 </script>
 
 <!-- Inclure le pied de page ici -->
