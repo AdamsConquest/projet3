@@ -18,7 +18,7 @@ class CategorieController
 
   public function afficher_par_categorie($params)
   {
-$page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
+    $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
     $_SESSION['page'] = $page;
 
     $parPage = 9;

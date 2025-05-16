@@ -10,13 +10,27 @@ chargerVuePartielle('_nav');
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Accueil</a></li>
-            <li class="breadcrumb-item active"></li>
+            <li class="breadcrumb-item active">
+                <?php
+                if (isset($idCategorie)) {
+                    echo obtenir_nom_categorie($idCategorie);
+                } else {
+                    echo "Mes annonces";
+                }
+                ?>
+            </li>
         </ol>
     </nav>
 
-    <div class="section-header">
-        <h2><i class="fas fa-bullhorn me-2"></i></h2>
-    </div>
+
+    <h2><i class="fas fa-bullhorn me-2"></i>
+        <?php if (isset($idCategorie)): ?>
+            <?php echo obtenir_nom_categorie($idCategorie); ?>
+        <?php else: ?>
+            Mes annonces
+        <?php endif; ?>
+    </h2>
+
 
 
     <!-- Action Button -->
