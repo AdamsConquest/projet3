@@ -233,7 +233,12 @@ function redirect($url)
   exit();
 }
 
-
+/**
+ * Retourne un tableau avec le nombre total d’annonces, le nombre d’annonces actives, et vendues.
+ *
+ * @param array $annonces Tableau d’annonces (chaque élément doit avoir les clés 'est_actif' et 'est_vendu')
+ * @return array Tableau contenant [total, actifs, vendus]
+ */
 function obtenir_nbr_annonces($annonces) {
 
   $compteur_actif = 0;
@@ -252,7 +257,4 @@ function obtenir_nbr_annonces($annonces) {
   return [count($annonces), $compteur_actif, $compteur_vendu];
 }
 
-function obtenir_nbr_page() {
-  
-}
 

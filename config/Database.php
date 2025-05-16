@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Classe Database
+ * Abstraction de la connexion et des requêtes SQL via PDO.
+ */
 class Database
 {
   public $connection;
@@ -54,7 +57,11 @@ class Database
       throw new Exception("Erreur lors de l'exécution de la requête : " . $e->getMessage());
     }
   }
-
+  /**
+   * Retourne l'ID de la dernière insertion effectuée.
+   *
+   * @return string L'ID inséré sous forme de chaîne (même si numérique)
+   */
   public function dernier_id_insere()
   {
     return $this->connection->lastInsertId();

@@ -1,24 +1,27 @@
 <?php
 
 /**
- * Contrôleur Utilisateur qui permet de gérer les utilisateurs comme l'inscription, la connexion, la déconnexion, etc.
+ * Contrôleur Utilisateur qui permet de gérer les utilisateurs : inscription, connexion, déconnexion, etc.
  */
-
 class UtilisateurController
-
 {
+  private $utilisateur; // Instance du modèle Utilisateur
 
-  private $utilisateur; // représente l'instance du modèle utilisateur
-
+  /**
+   * Initialise le modèle Utilisateur.
+   */
   public function __construct()
   {
-    // Instancie le modèle Utilisateur
     require_once get_chemin_defaut('models/Utilisateur.php');
-    $this->utilisateur = new Utilisateur(); // instance du modèle Utilisateur
+    $this->utilisateur = new Utilisateur();
   }
 
-
-
+  /**
+   * Inscrit un nouvel utilisateur s’il remplit les conditions de validation.
+   * S’il est inscrit avec succès, il est automatiquement connecté.
+   *
+   * @return void
+   */
   public function inscrire_utilisateur()
   {
     $prenom = Validation::valider_champs('nom', obtenirParametre('prenom'), ['requis' => true]);
@@ -26,26 +29,15 @@ class UtilisateurController
     $nom_utilisateur = Validation::valider_champs('nom d\'utilisateur', obtenirParametre('nom_utilisateur'), ['requis' => true]);
     $courriel = Validation::valider_champs('email', obtenirParametre('email'), ['requis' => true]);
     $mot_de_passe = Validation::valider_champs('password', obtenirParametre('mot_passe'), [
-      'requis' => true,
-      'majuscule' => true,
-      'chiffre' => true,
-      'special' => true,
-      'min' => 8
+      'requis' => true, 'majuscule' => true, 'chiffre' => true, 'special' => true, 'min' => 8
     ]);
     $mot_de_passe_confirmer = obtenirParametre('confirmation_mot_passe');
 
     if ($prenom && $nom && $nom_utilisateur && $courriel && $mot_de_passe) {
       if ($mot_de_passe == $mot_de_passe_confirmer) {
-        // Ajouter l'utilisateur et récupérer ses données
-        $this->utilisateur->ajouter_Utilisateur(
-          obtenirParametre('prenom'),
-          obtenirParametre('nom'),
-          obtenirParametre('nom_utilisateur'),
-          obtenirParametre('email'),
-          obtenirParametre('mot_passe')
-        );
-        $nouveau_utilisateur = $this->utilisateur->utilisateur_dans_BD(obtenirParametre('email'));
-        // Connecter automatiquement l'utilisateur
+        $this->utilisateur->ajouter_Utilisateur($prenom, $nom, $nom_utilisateur, $courriel, $mot_de_passe);
+        $nouveau_utilisateur = $this->utilisateur->utilisateur_dans_BD($courriel);
+
         if ($nouveau_utilisateur) {
           Session::set('id_utilisateur', [
             'id' => $nouveau_utilisateur[0]['id'],
@@ -54,8 +46,6 @@ class UtilisateurController
             'nom' => $nouveau_utilisateur[0]['nom'],
             'prenom' => $nouveau_utilisateur[0]['prenom']
           ]);
-
-          // Rediriger vers Mes annonces
           redirect('/MesAnnonces');
         }
       } else {
@@ -70,21 +60,22 @@ class UtilisateurController
     }
   }
 
+  /**
+   * Connecte un utilisateur à partir des informations fournies dans le formulaire.
+   * Si la combinaison email/mot de passe est valide, la session est initialisée.
+   *
+   * @return void
+   */
   public function connexion_utilisteur()
   {
-    // Get parameters
     $champ_email = obtenirParametre('email');
     $champ_password = obtenirParametre('mot_passe');
 
-    // Check if the user exists first
     $user = $this->utilisateur->utilisateur_dans_BD($champ_email);
 
-    // Add null check for user
     if (!$user || empty($user)) {
       Session::set_flash('Utilisateur n\'existe pas', 'danger');
-      // User not found
       redirect("/connexion_user");
-
       return;
     }
 
@@ -99,7 +90,6 @@ class UtilisateurController
       $password = $user[0]['mot_de_passe_hash'];
 
       if (Validation::comparer_chaines($champ_email, $email) && password_verify($champ_password, $password)) {
-
         Session::set('id_utilisateur', [
           'id' => $user[0]['id'],
           'nom_utilisateur' => $user[0]['nom_utilisateur'],
@@ -114,9 +104,7 @@ class UtilisateurController
         $annonces = $annonce->get_annonces_par_utilisateur($utilisateur_id);
 
         Session::set_flash('Connexion réussie!', 'success');
-        chargerVue("annonces/index", donnees: [
-          "annonces" => $annonces
-        ]);
+        chargerVue("annonces/index", ["annonces" => $annonces]);
       } else {
         Session::set_flash('Email ou mot de passe invalide', 'danger');
         redirect('/connexion_user');
@@ -124,6 +112,11 @@ class UtilisateurController
     }
   }
 
+  /**
+   * Déconnecte l’utilisateur s’il est connecté, détruit la session et redirige vers l’accueil.
+   *
+   * @return void
+   */
   public function deconnexion_utilisteur()
   {
     if (Session::est_connecte()) {

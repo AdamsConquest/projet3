@@ -12,7 +12,7 @@
       <a href="/ajouter_annonce" class="btn btn-secondary btn-lg me-2">
         <i class="fas fa-plus-circle me-2"></i>Déposer une annonce
       </a>
-      <a href="/categories" class="btn btn-outline-light btn-lg">
+      <a href="#categories" class="btn btn-outline-light btn-lg">
         <i class="fas fa-search me-2"></i>Explorer les catégories
       </a>
     </div>

@@ -1,23 +1,24 @@
 <?php
 
 /**
- * Controller de qui gère les opérations liées aux annonces comme l'affichage, la création, la modification, la suppression, etc.
- * 
+ * Contrôleur qui gère les opérations liées aux annonces : affichage, création, modification, suppression, etc.
  */
-
 class AnnonceController
 {
-
-  private $annonce; // représente l'instance du modèle Annonce
+  private $annonce; // Instance du modèle Annonce
 
   public function __construct()
   {
-    // Instancie le modèle Annonce
     require_once get_chemin_defaut('models/Annonce.php');
-    $this->annonce = new Annonce(); // instance du modèle Annonce
+    $this->annonce = new Annonce();
   }
 
-  //afficher annonces par utilisateur
+  /**
+   * Affiche les annonces de l'utilisateur connecté, avec pagination.
+   *
+   * @param array $params Paramètres de route
+   * @return void
+   */
   public function afficher_par_utilisateur($params)
   {
     if (!Session::est_connecte()) {
@@ -26,13 +27,13 @@ class AnnonceController
     }
 
     $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
+    $page = isset($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
     $_SESSION['page'] = $page;
 
     $parPage = 9;
     $offset = ($page - 1) * $parPage;
 
     $utilisateur_id = Session::obtenir_id_utilisateur();
-
     $stmt = $this->annonce->get_annonces_par_utilisateur_paginee($utilisateur_id, $parPage, $offset);
     $annonces = $stmt->fetchAll();
 
@@ -46,23 +47,32 @@ class AnnonceController
     ]);
   }
 
-
-
+  /**
+   * Traite l'ajout d'une annonce depuis un formulaire.
+   *
+   * @return void
+   */
   public function ajouterUneAnnonce()
   {
-    $catergoire = Validation::valider_champs('name', obtenirParametre('categorie'), ['requis' => true]);
+    $categorie = Validation::valider_champs('name', obtenirParametre('categorie'), ['requis' => true]);
     $titre = Validation::valider_champs('name', obtenirParametre('titre'), ['requis' => true]);
     $description = Validation::valider_champs('name', obtenirParametre('description'), ['requis' => true]);
     $prix = Validation::valider_champs('name', obtenirParametre('prix'), ['requis' => true]);
     $etat = Validation::valider_champs('name', obtenirParametre('etat'), ['requis' => true]);
 
-    if ($catergoire && $titre && $description && $prix && $etat) {
-      $this->annonce->ajouter_annnonce(obtenir_id_categorie(obtenirParametre('categorie')), obtenirParametre('titre'), obtenirParametre('description'), obtenirParametre('prix'), obtenirParametre('etat'));
-      Session::set_flash('Annonce ajouté avec succès.', 'success');
+    if ($categorie && $titre && $description && $prix && $etat) {
+      $this->annonce->ajouter_annnonce(obtenir_id_categorie($categorie), $titre, $description, $prix, $etat);
+      Session::set_flash('Annonce ajoutée avec succès.', 'success');
     }
     redirect('/MesAnnonces');
   }
 
+  /**
+   * Affiche le formulaire de modification d'une annonce si l'utilisateur est autorisé.
+   *
+   * @param array $params Paramètres de route (doit contenir 'id')
+   * @return void
+   */
   public function afficher_par_annonce($params)
   {
     $donnees = $this->annonce->get_annonce($params['id']);
@@ -136,19 +146,12 @@ class AnnonceController
 
   public function supprimer_une_annonce($params)
   {
-
-    // Récupérer l'ID de l'utilisateur connecté
     $utilisateur_id = Session::obtenir_id_utilisateur();
-
-    // Vérifier si l'annonce appartient à l'utilisateur connecté
     $annonce = $this->annonce->get_annonce($params['id']);
 
     if ($annonce[0]['utilisateur_id'] == $utilisateur_id) {
-      // Supprimer l'annonce
       $this->annonce->supprimer_annonce($params['id']);
-      // Ajouter un message flash de succès
       Session::set_flash('Annonce supprimée avec succès.', 'success');
-      redirect('/MesAnnonces');
     } else {
       Session::set_flash('Vous n\'êtes pas autorisé à supprimer cette annonce.', 'error');
       redirect('/MesAnnonces');
