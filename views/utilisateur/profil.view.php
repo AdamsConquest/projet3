@@ -1,4 +1,8 @@
 <!-- À inclure : entête et navigation -->
+ <?php
+chargerVuePartielle('_entete');
+chargerVuePartielle('_nav');
+?>
 
 <!-- Main Content -->
 <div class="container mt-4">
@@ -78,15 +82,15 @@
             <div id="profile-view">
               <div class="row mb-3">
                 <div class="col-md-4 fw-bold">Nom d'utilisateur:</div>
-                <div class="col-md-8"><!-- Nom d'utilisateur à afficher --></div>
+                <div class="col-md-8"><?php echo $nom_utilisateur?></div>
               </div>
               <div class="row mb-3">
                 <div class="col-md-4 fw-bold">Nom complet:</div>
-                <div class="col-md-8"><!-- Prénom et nom à afficher --></div>
+                <div class="col-md-8"><?php echo $prenom . " " . $nom?></div>
               </div>
               <div class="row mb-3">
                 <div class="col-md-4 fw-bold">Email:</div>
-                <div class="col-md-8"><!-- Email à afficher --></div>
+                <div class="col-md-8"><?php echo $courriel?></div>
               </div>
               <div class="row mb-3">
                 <div class="col-md-4 fw-bold">Bio:</div>
@@ -421,3 +425,6 @@
 </div>
 
 <!-- À inclure : pied de page -->
+ <?php
+chargerVuePartielle('_pied_page');
+?>
