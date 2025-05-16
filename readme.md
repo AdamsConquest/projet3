@@ -1,6 +1,6 @@
 # PopBazar
 
-Plateforme de gestion de petites annonces – Projet final du cours 420-W46-GG (Programmation Web – Serveur I), Hiver 2025.
+Plateforme de gestion de petites annonces – Projet final du cours 420-W46-GG
 
 ## Auteurs
 
