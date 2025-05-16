@@ -53,7 +53,7 @@
               <span><?php echo Session::obtenir_nom_utilisateur() ?></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Mon profil</a></li>
+              <li><a class="dropdown-item" href="/profil"><i class="fas fa-user me-2"></i> Mon profil</a></li>
               <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Mes favoris</a></li>
               <li><a class="dropdown-item" href="/MesAnnonces"><i class="fas fa-tag me-2"></i> Mes annonces</a></li>
               <li>
