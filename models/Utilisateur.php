@@ -45,4 +45,8 @@ class Utilisateur
     ];
    return $this->bd->requete($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  function  obtenir_utilisateur_par_id($id) {
+
+  }
 }

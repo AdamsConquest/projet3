@@ -41,6 +41,8 @@ $routeur->get("/inscription", "AccueilController@afficherPageInscription");
 $routeur->post("/deconnexion_user", "UtilisateurController@deconnexion_utilisteur");
 
 
+//Profile
+$routeur->get("/profil", "ProfilController@afficher");
 
 
 $routeur->post("/annonces","AnnonceController@ajouterUneAnnonce");
