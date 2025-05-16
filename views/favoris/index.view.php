@@ -1,4 +1,8 @@
 <!-- À inclure : entête et navigation -->
+<?php
+chargerVuePartielle('_entete');
+chargerVuePartielle('_nav');
+?>
 
 <!-- Main Content -->
 <div class="container mt-4">
@@ -29,7 +33,8 @@
             <span class="price-tag">75 $</span>
             <span class="badge bg-secondary ms-2">Bon état</span>
           </div>
-          <p class="card-text">Affiche originale de Star Wars Un Nouvel Espoir de 1977. Format 60x90cm, quelques traces d'usure.</p>
+          <p class="card-text">Affiche originale de Star Wars Un Nouvel Espoir de 1977. Format 60x90cm, quelques traces
+            d'usure.</p>
         </div>
         <div class="card-footer bg-white d-flex justify-content-between align-items-center">
           <small class="text-muted">Publié il y a 1 semaine</small>
@@ -52,7 +57,8 @@
             <span class="price-tag">150 $</span>
             <span class="badge bg-success ms-2">Neuf</span>
           </div>
-          <p class="card-text">Réplique officielle de l'épée Longclaw de Jon Snow, édition collector avec support mural.</p>
+          <p class="card-text">Réplique officielle de l'épée Longclaw de Jon Snow, édition collector avec support mural.
+          </p>
         </div>
         <div class="card-footer bg-white d-flex justify-content-between align-items-center">
           <small class="text-muted">Publié il y a 2 jours</small>
@@ -75,7 +81,8 @@
             <span class="price-tag">125 $</span>
             <span class="badge bg-success ms-2">Comme neuf</span>
           </div>
-          <p class="card-text">Console Nintendo Switch avec jeu Zelda Breath of the Wild inclus. Très bon état, peu utilisée.</p>
+          <p class="card-text">Console Nintendo Switch avec jeu Zelda Breath of the Wild inclus. Très bon état, peu
+            utilisée.</p>
         </div>
         <div class="card-footer bg-white d-flex justify-content-between align-items-center">
           <small class="text-muted">Publié il y a 2 jours</small>
@@ -134,3 +141,6 @@
 </div>
 
 <!-- À inclure : pied de page -->
+<?php
+chargerVuePartielle('_pied_page')
+  ?>

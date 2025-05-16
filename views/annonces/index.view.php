@@ -172,7 +172,6 @@ chargerVuePartielle('_nav');
                 </div>
 
                 <form id="form-supprimer" method="POST" action="/annonces/<?php echo $annonce['id'] ?>/supprimer" style="display:none;"></form>
-\
             <?php } ?>
         <?php } ?>
         <!-- Fin de la boucle -->

@@ -1,6 +1,7 @@
 <!-- À inclure : entête et navigation -->
 <?php
 chargerVuePartielle('_entete');
+chargerVuePartielle('_nav');
 ?>
 
 
@@ -34,4 +35,4 @@ chargerVuePartielle('_entete');
 <!-- À inclure : pied de page -->
 <?php
 chargerVuePartielle('_pied_page')
-?>
+  ?>
